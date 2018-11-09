@@ -1,2 +1,2 @@
 # Docker Stacks
-Home of docker/singularity containers managed by Data Science Practice
+Home of docker/singularity containers managed by the Data Science Practice
