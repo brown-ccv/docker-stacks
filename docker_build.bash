@@ -20,13 +20,13 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
-# Bail if we're on a dirty git tree
-if ! git diff-index --quiet HEAD; then
-    echo "You have uncommited changes. Please commit them before building and"
-    echo "populating. This helps ensure that all docker images are traceable"
-    echo "back to a git commit."
-    exit 1
-fi
+# # Bail if we're on a dirty git tree
+# if ! git diff-index --quiet HEAD; then
+#     echo "You have uncommited changes. Please commit them before building and"
+#     echo "populating. This helps ensure that all docker images are traceable"
+#     echo "back to a git commit."
+#     exit 1
+# fi
 
 IMAGE="$1"
 echo $IMAGE
@@ -40,7 +40,7 @@ TAG="${GIT_REV}"
 
 cd ${IMAGE}
 
-IMAGE_SPEC="${DOCKER_REPO}/jupyterhub-${IMAGE}:${TAG}"
+IMAGE_SPEC="${DOCKER_REPO}/${IMAGE}:${TAG}"
 docker build -t ${IMAGE_SPEC} .
-${DOCKER_PUSH} ${IMAGE_SPEC}
-echo "Pushed ${IMAGE_SPEC}"
+# ${DOCKER_PUSH} ${IMAGE_SPEC}
+# echo "Pushed ${IMAGE_SPEC}"
