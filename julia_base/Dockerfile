@@ -58,12 +58,17 @@ ENV JULIA_VERSION=1.0.2
 RUN mkdir /opt/julia-${JULIA_VERSION} && \
     cd /tmp && \
     wget -q https://julialang-s3.julialang.org/bin/linux/x64/`echo ${JULIA_VERSION} | cut -d. -f 1,2`/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
-    echo "bea4570d7358016d8ed29d2c15787dbefaea3e746c570763e7ad6040f17831f3 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
+    echo "e0e93949753cc4ac46d5f27d7ae213488b3fef5f8e766794df0058e1b3d2f142 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
     tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C /opt/julia-${JULIA_VERSION} --strip-components=1 && \
     rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
-#expose notebook and mysql ports
+ADD install_packages.jl /tmp/install_packages.jl
+
+RUN julia -e 'include("/tmp/install_packages.jl"); install(base_pkgs)'
+# This takes way too long to even start -let's run it inside container 
+# RUN julia -e 'include("/tmp/install_packages.jl"); precompile(base_pkgs)'
+#expose notebook and mysql port
 EXPOSE 8888 3306
 
 ENTRYPOINT ["/bin/bash"]

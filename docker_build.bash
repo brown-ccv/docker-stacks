@@ -42,5 +42,5 @@ cd ${IMAGE}
 
 IMAGE_SPEC="${DOCKER_REPO}/${IMAGE}:${TAG}"
 docker build -t ${IMAGE_SPEC} .
-# ${DOCKER_PUSH} ${IMAGE_SPEC}
-# echo "Pushed ${IMAGE_SPEC}"
+${DOCKER_PUSH} ${IMAGE_SPEC}
+echo "Pushed ${IMAGE_SPEC}"
