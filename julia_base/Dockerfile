@@ -66,6 +66,8 @@ RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 ADD install_packages.jl /tmp/install_packages.jl
 
 RUN julia -e 'include("/tmp/install_packages.jl"); install(base_pkgs)'
+
+RUN chmod -R 777 ${JULIA_DEPOT_PATH}
 # This takes way too long to even start -let's run it inside container 
 # RUN julia -e 'include("/tmp/install_packages.jl"); precompile(base_pkgs)'
 #expose notebook and mysql port
