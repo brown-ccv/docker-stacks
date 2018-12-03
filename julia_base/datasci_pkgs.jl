@@ -8,9 +8,9 @@ const datasci_pkgs = [  "ClassImbalance",
                         "Knet",
                         "MixedModels",
                         "ROCAnalysis",
-                        "SVM",
+                        "LIBSVM",
                         "TextAnalysis",
                         "WordTokenizers"
                     ]
-                    
+
 const dataset_pkgs = ["VegaDatasets", "RDatasets"]
