@@ -54,36 +54,3 @@ function precompile(pkgs)
     
     return failed_pkgs
 end
-
-const base_pkgs = [ "MySQL",
-                    "ClassImbalance",
-                    "Clustering",
-                    "Compat",
-                    "CSV",
-                    "DataFrames",
-                    "DecisionTree",
-                    "EzXML",
-                    "Flux",
-                    "GLM",
-                    "HTTP",
-                    "HypothesisTests",
-                    "JLD",
-                    "JLD2",
-                    "JSON",
-                    "JuliaDB",
-                    "LightXML",
-                    "MixedModels",
-                    "Revise",
-                    "ROCAnalysis",
-                    "StatsBase",
-                    "SQLite",
-                    "TextAnalysis",
-                    "Query",
-                    "WordTokenizers"
-                    ]
-
-
-const plotting_pkgs = [ "VegaLite", "PlotlyJS", "Gadfly"]
-
-# install(base_pkgs)
-# precompile(base_pkgs)
