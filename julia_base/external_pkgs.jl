@@ -1,1 +1,4 @@
-const external_pkgs = ["RCall", "PyCall", "PyPlot", "Seaborn", "IJulia", "ScikitLearn", "TensorFlow"]
+const external_pkgs = ["PyCall", "PyPlot", "IJulia", "ScikitLearn", "TensorFlow"]
+
+# "RCall" Error: R_HOME not a directory
+# "Seaborn" ERROR: UndefVarError: warn not defined

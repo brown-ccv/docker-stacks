@@ -1,5 +1,6 @@
 const plotting_pkgs = [ "DataVoyager",
                         "Gadfly",
-                        "PlotlyJS", 
                         "Plots",
                         "VegaLite"]
+                        
+# "PlotlyJS" - failed ... Electron failed to build
