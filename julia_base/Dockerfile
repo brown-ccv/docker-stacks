@@ -76,10 +76,10 @@ RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/datasci_pkgs.jl
 COPY plotting_pkgs.jl /tmp/
 RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/plotting_pkgs.jl"); install(plotting_pkgs)'
 
-COPY external_pkgs.jl /tmp/
+# COPY external_pkgs.jl /tmp/
 #use conda.jl to
-ENV PYTHON=""
-RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/external_pkgs.jl"); install(external_pkgs)'
+# ENV PYTHON=""
+# RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/external_pkgs.jl"); install(external_pkgs)'
 
 #expose notebook and mysql port
 EXPOSE 8888 3306
