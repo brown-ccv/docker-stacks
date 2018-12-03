@@ -65,19 +65,21 @@ RUN mkdir /opt/julia-${JULIA_VERSION} && \
     rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
-# Add packages, they are all split into different files so Docker Caching can work better
+# Add packages, they are all split into different files/steps so Docker Caching can work better
 COPY install_packages.jl /tmp/
 COPY base_pkgs.jl /tmp/
-COPY datasci_pkgs.jl /tmp/
-COPY plotting_pkgs.jl /tmp/
-COPY external_pkgs.jl /tmp/
-
 RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/base_pkgs.jl"); install(base_pkgs)'
-RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/datasci_pkgs.jl"); install(datasci_pkgs); install(dataset_pkgs)'
-RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/plotting_pkgs.jl"); install(plotting_pkgs)'
-RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/external_pkgs.jl"); install(external_pkgs)'
 
-# COPY user home to Depot path
+COPY datasci_pkgs.jl /tmp/
+RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/datasci_pkgs.jl"); install(datasci_pkgs); install(dataset_pkgs)'
+
+COPY plotting_pkgs.jl /tmp/
+RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/plotting_pkgs.jl"); install(plotting_pkgs)'
+
+COPY external_pkgs.jl /tmp/
+#use conda.jl to
+ENV PYTHON=""
+RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/external_pkgs.jl"); install(external_pkgs)'
 
 #expose notebook and mysql port
 EXPOSE 8888 3306
