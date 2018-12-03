@@ -7,6 +7,7 @@ MAINTAINER Stronghold Help <stronghold-help@brown.edu>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -yq dist-upgrade \
  && apt-get install -yq --no-install-recommends \
+    build-essential \
     wget \
     bzip2 \
     ca-certificates \
