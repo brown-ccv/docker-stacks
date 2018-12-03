@@ -64,21 +64,21 @@ RUN mkdir /opt/julia-${JULIA_VERSION} && \
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
 # Add packages, they are all split into different files so Docker Caching can work better
-ADD install_packages.jl /tmp/install_packages.jl
-ADD base_pkgs.jl /tmp/base_pkgs.jl
-ADD datasci_pkgs.jl /tmp/datasci_pkgs.jl
-ADD plotting_pkgs.jl /tmp/plotting_pkgs.jl
-ADD external_pkgs.jl /tmp/external_pkgs.jl
+COPY install_packages.jl /tmp/
+COPY base_pkgs.jl /tmp/
+COPY datasci_pkgs.jl /tmp/
+COPY plotting_pkgs.jl /tmp/
+COPY external_pkgs.jl /tmp/
 
 RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/base_pkgs.jl"); install(base_pkgs)'
 RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/datasci_pkgs.jl"); install(datasci_pkgs); install(dataset_pkgs)'
 RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/plotting_pkgs.jl"); install(plotting_pkgs)'
 RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/external_pkgs.jl"); install(external_pkgs)'
 
-# Add user home to Depot path
-ENV JULIA_DEPOT_PATH=${HOME}:JULIA_DEPOT_PATH
+# COPY user home to Depot path
 
 #expose notebook and mysql port
 EXPOSE 8888 3306
 
-ENTRYPOINT ["/bin/bash"]
+COPY entrypoint.sh /tmp/
+ENTRYPOINT ["/tmp/entrypoint.sh"]
