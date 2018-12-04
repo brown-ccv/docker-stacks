@@ -76,5 +76,5 @@ RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/plotting_pkgs.j
 #expose notebook and mysql port
 EXPOSE 8888 3306
 
-COPY entrypoint.sh /tmp/
-ENTRYPOINT ["/tmp/entrypoint.sh"]
+COPY entrypoint_scripts/julia_base.sh /tmp/
+ENTRYPOINT ["/tmp/julia_base.sh"]
