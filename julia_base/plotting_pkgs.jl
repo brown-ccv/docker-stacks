@@ -1,5 +1,5 @@
 const plotting_pkgs = [ "Gadfly",
-                        "GR"
+                        "GR",
                         "Plots",
                         "VegaLite",
                         "StatPlots",

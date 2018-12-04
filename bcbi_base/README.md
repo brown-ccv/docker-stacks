@@ -1,8 +1,7 @@
 # BCBC Base Container
 
 
-* Based on the datascience-notebook from jupyter-docker-stack
-* Enriched Julia ecosystem according to BCBI's needs
+* Julia Base + Basic Python + Basic R
 
 For example to build the image, run 
 `./docker_build.bash -r bcbi bcbi_base`
