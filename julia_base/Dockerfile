@@ -66,11 +66,11 @@ RUN mkdir /opt/julia-${JULIA_VERSION} && \
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
 # Add packages, they are all split into different files/steps so Docker Caching can work better
-COPY ../install_packages.jl /tmp/
-COPY base_pkgs.jl /tmp/
+COPY julia_scripts/install_packages.jl /tmp/
+COPY julia_scripts/base_pkgs.jl /tmp/
 RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/base_pkgs.jl"); install(base_pkgs)'
 
-COPY plotting_pkgs.jl /tmp/
+COPY julia_scripts/plotting_pkgs.jl /tmp/
 RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/plotting_pkgs.jl"); install(plotting_pkgs)'
 
 #expose notebook and mysql port
