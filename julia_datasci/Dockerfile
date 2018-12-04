@@ -8,6 +8,3 @@ RUN julia -e 'using Pkg; include("/tmp/install_packages.jl"); include("/tmp/data
 
 #expose notebook and mysql port
 EXPOSE 8888 3306
-
-COPY entrypoint.sh /tmp/
-ENTRYPOINT ["/tmp/entrypoint.sh"]
