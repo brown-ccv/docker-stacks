@@ -8,17 +8,17 @@ Home of docker/singularity containers managed by the Data Science Practice
     * DockerHub account (optional)
 
 * Downloading the images
-    ```
+    ```bash
     docker pull REGISTRY/TAG:TAG
     ```
 
 * Clone this repository
-    ```
+    ```bash
     git clone https://github.com/brown-data-science/docker-stacks.git
     ```
 
 * Run the build script to generate Docker images.
-    ```
+    ```bash
     ./build.bash [ -r REGISTRY ] [ image_folder ]
     ```
 
@@ -30,7 +30,7 @@ Each docker image is tagged with the git commit hash corresponding with the last
 ## Available Images
 
 * [Julia Base](#julia-base)
-* Julia Data Science
+* [Julia Data Science](#julia-data-science)
 * BCBI Base
 ---
 ## Julia Base
@@ -41,25 +41,26 @@ This [repo](https://hub.docker.com/r/browndatasci/julia_base/) lives in DockeHub
 
 ### Pull Command
 
-```
+```bash
 docker pull browndatasci/julia_base:$TAG
 ```
 
 `$TAG` must be specified
 
 ### Build image
-
+```bash
 ./docker_build.bash -r browndatasci julia_base
+```
 
 ### Run docker image
 
 The image can be call as an executable with the desired application. E.g.,
 
-`docker run -it browndatasci/julia_base:tag bash`
-
-`docker run -it browndatasci/julia_base:tag julia`
-
-`docker run -it browndatasci/julia_base:tag mysql -h 'hostname' -u 'username' -p`
+```bash
+docker run -it browndatasci/julia_base:tag bash
+docker run -it browndatasci/julia_base:tag julia
+docker run -it browndatasci/julia_base:tag mysql -h 'hostname' -u 'username' -p
+```
 
 ----
 ## Julia Data Science
@@ -67,14 +68,16 @@ The image can be call as an executable with the desired application. E.g.,
 Appends stats, and machine learning packages to Julia's base image
 
 ### Build image
-./docker_build.bash -r browndatasci julia_base
+```
+./docker_build.bash -r browndatasci julia_datasci
+```
 
 ### Run docker image
 
 The image can be call as an executable with the desired application
 
-`docker run -it browndatasci/julia_datasci:tag bash`
-
-`docker run -it browndatasci/julia_datasci:tag julia`
-
-`docker run -it browndatasci/julia_datasci:tag mysql -h 'hostname' -u 'username' -p`
+```bash
+docker run -it browndatasci/julia_datasci:tag bash
+docker run -it browndatasci/julia_datasci:tag julia
+docker run -it browndatasci/julia_datasci:tag mysql -h 'hostname' -u 'username' -p
+```
