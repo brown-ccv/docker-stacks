@@ -1,33 +1,80 @@
 # Docker Stacks
 Home of docker/singularity containers managed by the Data Science Practice
 
-We based many of our containers on [jupyter docker-stack](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#core-stacks)
+## Getting Started
 
+* Pre-requisites:
+    * Docker
+    * DockerHub account (optional)
 
-Getting Started
--------
+* Downloading the images
+    ```
+    docker pull REGISTRY/TAG:TAG
+    ```
 
-* Clone this repository.
-
+* Clone this repository
+    ```
+    git clone https://github.com/brown-data-science/docker-stacks.git
+    ```
 
 * Run the build script to generate Docker images.
-```
-./build.bash [ -r REGISTRY ] [ image_folder ]
-```
+    ```
+    ./build.bash [ -r REGISTRY ] [ image_folder ]
+    ```
 
-The `-r` option can be a docker container registry, e.g. gcr.io/YOUR_ORG. The
-singleuser server builds utilize a shared base image specified by
-base/Dockerfile. Various other singleuser server images are built from this
-specified by {user_type}/Dockerfile. 
-
-For example to build the singleuser image, you would run 
-`./docker_build.bash -r browndatasci scipy-plus-lab`
+The `-r` option can be a docker container registry, e.g. hub.docker/YOUR_ORG. 
 
 Each docker image is tagged with the git commit hash corresponding with the last git revision of the build files. 
 
+---
+## Available Images
 
-File / Folder structure
--------
+* [Julia Base](#julia-base)
+* Julia Data Science
+* BCBI Base
+---
+## Julia Base
 
-The subdirectories contain the Dockerfiles and scripts for the images used for
-this deployment.
+### Repository
+
+This [repo](https://hub.docker.com/r/browndatasci/julia_base/) lives in DockeHub.
+
+### Pull Command
+
+```
+docker pull browndatasci/julia_base:$TAG
+```
+
+`$TAG` must be specified
+
+### Build image
+
+./docker_build.bash -r browndatasci julia_base
+
+### Run docker image
+
+The image can be call as an executable with the desired application. E.g.,
+
+`docker run -it browndatasci/julia_base:tag bash`
+
+`docker run -it browndatasci/julia_base:tag julia`
+
+`docker run -it browndatasci/julia_base:tag mysql -h 'hostname' -u 'username' -p`
+
+----
+## Julia Data Science
+
+Appends stats, and machine learning packages to Julia's base image
+
+### Build image
+./docker_build.bash -r browndatasci julia_base
+
+### Run docker image
+
+The image can be call as an executable with the desired application
+
+`docker run -it browndatasci/julia_datasci:tag bash`
+
+`docker run -it browndatasci/julia_datasci:tag julia`
+
+`docker run -it browndatasci/julia_datasci:tag mysql -h 'hostname' -u 'username' -p`
