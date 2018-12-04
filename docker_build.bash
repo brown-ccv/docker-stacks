@@ -38,9 +38,9 @@ fi
 GIT_REV=$(git log -n 1 --pretty=format:%h -- ${IMAGE})
 TAG="${GIT_REV}"
 
-# cd $pwd
+cd $pwd
 
 IMAGE_SPEC="${DOCKER_REPO}/${IMAGE}:${TAG}"
-docker build -f ${IMAGE} -t ${IMAGE_SPEC} .
+docker build -f ${IMAGE}/Dockerfile -t ${IMAGE_SPEC} .
 ${DOCKER_PUSH} ${IMAGE_SPEC}
 echo "Pushed ${IMAGE_SPEC}"
