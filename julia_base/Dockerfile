@@ -65,16 +65,17 @@ RUN mkdir /opt/julia-${JULIA_VERSION} && \
     rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
+RUN mkdir /opt/scripts
 # Add packages, they are all split into different files/steps so Docker Caching can work better
-COPY julia_scripts/install_packages.jl /tmp/
-COPY julia_scripts/base_pkgs.jl /tmp/
-RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/base_pkgs.jl"); install(base_pkgs)'
+COPY julia_scripts/install_packages.jl /opt/scripts/
+COPY julia_scripts/base_pkgs.jl /opt/scripts/
+RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/base_pkgs.jl"); install(base_pkgs)'
 
-COPY julia_scripts/plotting_pkgs.jl /tmp/
-RUN julia -e 'include("/tmp/install_packages.jl"); include("/tmp/plotting_pkgs.jl"); install(plotting_pkgs)'
+COPY julia_scripts/plotting_pkgs.jl /opt/scripts/
+RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/plotting_pkgs.jl"); install(plotting_pkgs)'
 
 #expose notebook and mysql port
 EXPOSE 8888 3306
 
-COPY entrypoint_scripts/julia_base.sh /tmp/
+COPY entrypoint_scripts/julia_base.sh /opt/scripts/
 ENTRYPOINT ["/tmp/julia_base.sh"]
