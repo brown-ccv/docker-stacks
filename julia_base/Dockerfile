@@ -78,4 +78,4 @@ RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts
 EXPOSE 8888 3306
 
 COPY entrypoint_scripts/julia_base.sh /opt/scripts/
-ENTRYPOINT ["/tmp/julia_base.sh"]
+ENTRYPOINT ["/opt/scripts/julia_base.sh"]

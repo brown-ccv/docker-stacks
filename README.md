@@ -22,9 +22,11 @@ Home of docker/singularity containers managed by the Data Science Practice
     ./build.bash [ -r REGISTRY ] [ image_folder ]
     ```
 
-The `-r` option can be a docker container registry, e.g. hub.docker/YOUR_ORG. 
+    The `-r` option can be a docker container registry, e.g. hub.docker/YOUR_ORG. 
 
-Each docker image is tagged with the git commit hash corresponding with the last git revision of the build files. 
+Notes:
+* Each docker image is tagged with the git commit hash corresponding with the last git revision of the build files. 
+* These images are also intended to use by Singularity, therefore any content placed in $HOME and /tmp/ will be overwritten or inaccessible
 
 ---
 ## Available Images
