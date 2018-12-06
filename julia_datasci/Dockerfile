@@ -1,4 +1,4 @@
-FROM browndatasci/julia_base:243d779
+FROM browndatasci/julia_base:e9902c1
 
 MAINTAINER Stronghold Help <stronghold-help@brown.edu>
 
