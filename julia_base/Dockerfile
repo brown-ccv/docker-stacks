@@ -66,10 +66,16 @@ RUN mkdir /opt/julia-${JULIA_VERSION} && \
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
 RUN mkdir /opt/scripts
+
 # Add packages, they are all split into different files/steps so Docker Caching can work better
 COPY julia_scripts/install_packages.jl /opt/scripts/
 COPY julia_scripts/base_pkgs.jl /opt/scripts/
 RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/base_pkgs.jl"); install(base_pkgs)'
+
+# Julia MySQL v0.7 ships with an outdated myslq client that prevents us to onnect to servers running
+# MySQL > v8.04 see - https://github.com/JuliaDatabases/MySQL.jl/issues/118
+RUN rm /opt/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
+RUN ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /opt/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so 
 
 COPY julia_scripts/plotting_pkgs.jl /opt/scripts/
 RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/plotting_pkgs.jl"); install(plotting_pkgs)'
