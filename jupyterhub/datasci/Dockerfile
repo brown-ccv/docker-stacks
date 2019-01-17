@@ -64,4 +64,4 @@ RUN julia -e 'using Pkg; include(expanduser("~/scripts/install_packages.jl")); i
 #what about python packages?
 
 # This allows precompilation to be remembered?
-# ENV  JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
+ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
