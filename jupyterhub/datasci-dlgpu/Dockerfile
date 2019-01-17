@@ -1,4 +1,4 @@
-FROM browndatasci/jupyterhub-datasci:1809dbc
+FROM browndatasci/jupyterhub-datasci:latest
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
