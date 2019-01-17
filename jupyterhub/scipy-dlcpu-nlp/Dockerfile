@@ -1,4 +1,4 @@
-FROM browndatasci/jupyterhub-scipy-dl-cpu:1809dbc
+FROM browndatasci/jupyterhub-scipy-dlcpu:latest
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 

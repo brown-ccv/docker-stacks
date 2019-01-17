@@ -1,4 +1,4 @@
-FROM browndatasci/jupyterhub-scipy-dl-gpu:963a754
+FROM browndatasci/jupyterhub-scipy-dlgpu:latest
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
