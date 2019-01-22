@@ -1,4 +1,4 @@
-FROM browndatascience/jupyterhub-datasci-dlcpu:latest
+FROM browndatasci/jupyterhub-datasci-dlcpu:latest
 
 USER root
 
