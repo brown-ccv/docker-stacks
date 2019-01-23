@@ -5,10 +5,7 @@ USER root
 # Install MS core fonts as root
 RUN apt-get install msttcorefonts
 
-RUN apt-get update && apt-get -yq dist-upgrade \
-    && apt-get install -yq --no-install-recommends \
-    msttcorefonts \
-    && apt-get clean
+RUN sudo apt-get install msttcorefonts
 
 
 USER $NB_UID
