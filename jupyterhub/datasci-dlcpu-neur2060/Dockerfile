@@ -3,7 +3,17 @@ FROM browndatasci/jupyterhub-datasci-dlcpu:latest
 USER root
 
 # Install MS core fonts as root
-RUN apt-get install msttcorefonts
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository universe && \
+    add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner" && \
+    apt-get install -y cabextract xfonts-utils
+
+RUN wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.7_all.deb
+RUN dpkg -i ttf-mscorefonts-installer_3.7_all.deb
+RUN fc-cache -f -v
+
+RUN apt-get clean
 
 USER $NB_UID
 

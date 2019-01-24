@@ -7,10 +7,11 @@ set -e
 
 DOCKER_REPO=""
 DOCKER_PUSH="docker push"
-
+FORCE=False
 while getopts ":r:" opt; do
 	case $opt in
 		r) DOCKER_REPO="$OPTARG" ;;
+		f) FORCE=True ;;
 	esac
 done
 shift $((OPTIND-1))
@@ -21,12 +22,15 @@ if [ -z "$1" ]; then
 fi
 
 # Bail if we're on a dirty git tree
-if ! git diff-index --quiet HEAD; then
-    echo "You have uncommited changes. Please commit them before building and"
-    echo "populating. This helps ensure that all docker images are traceable"
-    echo "back to a git commit."
-    exit 1
-fi
+# echo $FORCE
+# if ! $FORCE; then
+# 	if ! git diff-index --quiet HEAD; then
+# 		echo "You have uncommited changes. Please commit them before building and"
+# 		echo "populating. This helps ensure that all docker images are traceable"
+# 		echo "back to a git commit."
+# 		exit 1
+# 	fi
+# fi
 
 IFS='-' read -r -a images <<< "$1"
 
