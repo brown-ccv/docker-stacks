@@ -21,6 +21,9 @@ USER $NB_UID
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
 
+# update python numpy matplotlib pandas bokeh (jupyter-scipy are a bit old)
+RUN conda update python numpy matplotlib pandas bokeh
+
 # bqplot https://github.com/bloomberg/bqplot
 RUN conda install -c conda-forge bqplot
 RUN jupyter labextension install bqplot
