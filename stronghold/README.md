@@ -34,6 +34,7 @@ Notes:
 * [Julia Base](#julia-base)
 * [Julia Data Science](#julia-data-science)
 * BCBI Base
+* [Ctakes](#ctakes)
 ---
 ## Julia Base
 
@@ -72,6 +73,16 @@ Appends stats, and machine learning packages to Julia's base image
 ### Build image
 ```
 ./docker_build.bash -r browndatasci julia_datasci
+```
+
+---
+## Ctakes
+
+Appends stats, and machine learning packages to Julia's base image
+
+### Build image
+```
+./docker_build.bash -r browndatasci ctakes
 ```
 
 ### Run docker image
