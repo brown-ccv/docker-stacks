@@ -3,7 +3,7 @@ FROM openjdk:8-alpine
 RUN apk update && apk add ca-certificates openssl wget unzip
 
 ## ~1.7G
-RUN cd /opt
+RUN mkdir /opt && cd /opt
 RUN wget -q -O - http://apache.osuosl.org//ctakes/ctakes-4.0.0/apache-ctakes-4.0.0-bin.tar.gz | tar xzf -
 
 ## ~76M
