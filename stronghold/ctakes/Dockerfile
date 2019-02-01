@@ -15,7 +15,9 @@ RUN ls -la
 RUN wget https://github.com/bcbi/ctakes_dictionaries/raw/master/sno_rx_18ab.zip
 RUN unzip -o sno_rx_18ab.zip -d /opt/apache-ctakes-4.0.0/resources/org/apache/ctakes/dictionary/lookup/fast/
 
-RUN rm -rf /opt/apache-ctakes-4.0.0/resources/org/apache/ctakes/dictionary/lookup/fast/_MACOSX/
+RUN rm -rf /opt/apache-ctakes-4.0.0/resources/org/apache/ctakes/dictionary/lookup/fast/_MACOSX
+
+RUN ls /opt/apache-ctakes-4.0.0/resources/org/apache/ctakes/dictionary/lookup/fast/
 
 RUN wget -q -O sno_rx_18ab.xml https://github.com/bcbi/ctakes_dictionaries/raw/master/sno_rx_18ab_sh.xml
 
