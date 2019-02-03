@@ -1,6 +1,9 @@
 FROM openjdk:8-alpine
 
-RUN apk update && apk add ca-certificates openssl wget unzip
+RUN apk update && \
+    apk add ca-certificates openssl \
+    wget unzip git \
+    emacs nano vim \
 
 ## ~1.7G
 RUN mkdir /opt 
