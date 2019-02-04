@@ -11,8 +11,8 @@ RUN cd /tmp \
     && wget http://apache.osuosl.org//ctakes/ctakes-4.0.0/apache-ctakes-4.0.0-bin.tar.gz \
     && tar -xvf apache-ctakes-4.0.0-bin.tar.gz -C /opt
 
-RUN pwd
-RUN ls -la
+## This is match the /data directory in SH that many use
+RUN mkdir /data
 ## ~76M
 
 # Remove dictionaries, they are synchedn and bound in stronghold since the location need to be writable
