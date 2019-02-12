@@ -16,11 +16,12 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     locales \
     fonts-liberation \
     git \
+    gpg \
     emacs nano vim \
-    openssh-client\ 
-    && apt-get clean 
+    openssh-client\
+    && apt-get clean
 
-# not sure why this is needed but otherwise after installing miniconda we get 
+# not sure why this is needed but otherwise after installing miniconda we get
 #/bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -52,18 +53,27 @@ RUN cd /tmp/ && wget https://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_VERS
 RUN apt-get update && apt-get install -y mysql-client libmysqlclient-dev
 
 # ****************************** Julia ***************************
-ENV JULIA_URL https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.2-linux-x86_64.tar.gz
-        
-ENV JULIA_DEPOT_PATH=/opt/julia
-ENV JULIA_VERSION=1.0.2
+# UPDATE THIS TO UPGRADE JULIA VERSION
+ENV JULIA_VERSION 1.1.0
 
-RUN mkdir /opt/julia-${JULIA_VERSION} && \
+ENV JULIA_DEPOT_PATH=/opt/julia/share/julia
+
+# get GPG key and install it to key ring, download and install julia
+RUN cd /tmp && \
+    wget -q https://julialang.org/juliareleases.asc && \
+    gpg --import juliareleases.asc && \
+    JULIA_MAJOR_VERSION=$(echo $JULIA_VERSION | cut -c1-3) && \
+    JULIA_FILE=$(echo julia-$JULIA_VERSION-linux-x86_64.tar.gz) && \
+    JULIA_URL=$(echo https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_MAJOR_VERSION/$JULIA_FILE) && \
+    mkdir /opt/julia && \
     cd /tmp && \
-    wget -q https://julialang-s3.julialang.org/bin/linux/x64/`echo ${JULIA_VERSION} | cut -d. -f 1,2`/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
-    echo "e0e93949753cc4ac46d5f27d7ae213488b3fef5f8e766794df0058e1b3d2f142 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
-    tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C /opt/julia-${JULIA_VERSION} --strip-components=1 && \
-    rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
-RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
+    wget -q $JULIA_URL && \
+    wget -q $(echo $JULIA_URL.asc) && \
+    gpg --verify $JULIA_FILE.asc && \
+    tar xzf $JULIA_FILE -C /opt/julia --strip-components=1 && \
+    rm /tmp/$JULIA_FILE
+
+RUN ln -fs /opt/julia/bin/julia /usr/local/bin/julia
 
 RUN mkdir /opt/scripts
 
@@ -74,11 +84,26 @@ RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts
 
 # Julia MySQL v0.7 ships with an outdated myslq client that prevents us to onnect to servers running
 # MySQL > v8.04 see - https://github.com/JuliaDatabases/MySQL.jl/issues/118
-RUN rm /opt/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
-RUN ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /opt/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so 
+RUN rm /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
+RUN ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
 
 COPY julia_scripts/plotting_pkgs.jl /opt/scripts/
 RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/plotting_pkgs.jl"); install(plotting_pkgs)'
+
+# set the julia registry using startup.jl
+RUN cd /opt/julia/share/julia/registries && \
+    mv General StrongHoldGeneral && \
+    cd StrongHoldGeneral && \
+    sed -i 's/name = "General"/name = "StrongHoldGeneral"/g' Registry.toml && \
+    sed -i 's/uuid = "23338594-aafe-5451-b93e-139f81909106"/uuid = "a67460e4-2ee5-11e9-b210-d663bd873d93"/g' Registry.toml && \
+    sed -i 's/repo = "https:\/\/github.com\/JuliaRegistries\/General.git"/repo = "\/opt\/julia\/share\/julia\/registries\/StrongHoldGeneral"/g' Registry.toml && \
+    git config --global user.email "stronghold-help@brown.edu" && \
+    git config --global user.name "Stronghold Team" && \
+    git add . && \
+    git commit -m "updating registry details for stronghold" && \
+    git remote remove origin
+
+COPY julia_scripts/sh_startup.jl /opt/julia/etc/julia/startup.jl
 
 #expose notebook and mysql port
 EXPOSE 8888 3306

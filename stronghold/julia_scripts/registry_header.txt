@@ -1,0 +1,3 @@
+name = "StrongHoldGeneral"
+uuid = "a67460e4-2ee5-11e9-b210-d663bd873d93"
+repo = "https://github.com/JuliaRegistries/General.git"

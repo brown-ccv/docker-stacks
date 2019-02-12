@@ -1,6 +1,8 @@
 using Pkg
 
 
+# deleteat!(DEPOT_PATH, 1:2)
+
 """
 install_packages(pkgs)
 Call `Pkg.add` and `using` on list of desired packages
@@ -34,6 +36,6 @@ function precompile(pkgs)
     println("Failed packages: ", length(failed_pkgs))
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
-    
+
     return failed_pkgs
 end

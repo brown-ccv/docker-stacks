@@ -12,9 +12,9 @@ FORCE=False
 while getopts "fr:" opt; do
     echo $opt
 	case $opt in
-		f) FORCE=True 
+		f) FORCE=True
 		;;
-		r) DOCKER_REPO="$OPTARG" 
+		r) DOCKER_REPO="$OPTARG"
 		;;
 		\? )
 		echo "Usage: $0  [-f:forces build if git out of date] [-r DOCKER_REPO] [ IMAGE_FOLDER ]"
@@ -40,11 +40,11 @@ for index in "${!images[@]}"
 do
     IMAGE=${images[0]}
 
-	for (( j=1; j<=$index; j++ )) 
+	for (( j=1; j<=$index; j++ ))
 	do
 		IMAGE="${IMAGE}-${images[j]}"
 	done
-	
+
 	echo "Building $IMAGE"
 	if [ ! -f ${IMAGE}/Dockerfile ]; then
 		echo "No such file: ${IMAGE}/Dockerfile"
@@ -54,7 +54,7 @@ do
 	GIT_REV=$(git log -n 1 --pretty=format:%h -- ${IMAGE})
 	TAG="${GIT_REV}"
 
-	IMAGE_NAME=${IMAGE}
+	IMAGE_NAME="SH-${IMAGE}"
 	IMAGE_SPEC="${DOCKER_REPO}/${IMAGE_NAME}:${TAG}"
 	docker build -f ${IMAGE}/Dockerfile -t ${IMAGE_SPEC} .
 	${DOCKER_PUSH} ${IMAGE_SPEC}
@@ -65,4 +65,3 @@ do
 	docker push ${DOCKER_REPO}/${IMAGE_NAME}:latest
 
 done
-
