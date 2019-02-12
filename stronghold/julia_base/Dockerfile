@@ -102,8 +102,12 @@ RUN cd /opt/julia/share/julia/registries && \
     git add . && \
     git commit -m "updating registry details for stronghold" && \
     git remote remove origin
-
 COPY julia_scripts/sh_startup.jl /opt/julia/etc/julia/startup.jl
+
+# remove compiled packages from shared install
+RUN JULIA_MAJOR_VERSION=$(echo v$JULIA_VERSION | cut -c1-4) && \
+    cd /opt/julia/share/julia/compiled/$JULIA_MAJOR_VERSION && \
+    rm -rf *
 
 #expose notebook and mysql port
 EXPOSE 8888 3306
