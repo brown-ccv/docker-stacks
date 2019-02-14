@@ -1,7 +1,7 @@
 using Pkg
 
 
-# deleteat!(DEPOT_PATH, 1:2)
+deleteat!(DEPOT_PATH, 1:2)
 
 """
 install_packages(pkgs)
