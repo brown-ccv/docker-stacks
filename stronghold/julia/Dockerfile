@@ -15,6 +15,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     sudo \
     locales \
     fonts-liberation \
+    firefox \
     git \
     gpg \
     emacs nano vim \
