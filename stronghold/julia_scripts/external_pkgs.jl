@@ -1,5 +1,5 @@
 println("Python")
-println(ENV["PYTHON"])
+# println(ENV["PYTHON"])
 const external_pkgs = ["PyCall", "PyPlot", "IJulia", "ScikitLearn", "Seaborn", "Pandas"]
 
 # "RCall" Error: R_HOME not a directory
