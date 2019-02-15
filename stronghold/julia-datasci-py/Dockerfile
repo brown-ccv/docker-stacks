@@ -16,6 +16,7 @@ RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/
 ENV JUPYTER_DATA_DIR /opt/julia/share/jupyter
 RUN mkdir /opt/julia/share/jupyter
 RUN /opt/julia/share/julia/conda/3/bin/conda install -y jupyter
+RUN julia -e 'using IJulia; installkernel("Julia","")'
 
 #remove pre-compiled libraries as it creates permission errors
 RUN rm -rf /opt/julia/share/julia/compiled
