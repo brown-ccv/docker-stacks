@@ -84,7 +84,7 @@ RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts
 # Julia MySQL v0.7 ships with an outdated myslq client that prevents us to onnect to servers running
 # MySQL > v8.04 see - https://github.com/JuliaDatabases/MySQL.jl/issues/118
 RUN rm /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
-RUN ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
+RUN cp /usr/lib/x86_64-linux-gnu/libmysqlclient.so /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
 
 COPY julia_scripts/plotting_pkgs.jl /opt/scripts/
 RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/plotting_pkgs.jl"); install(plotting_pkgs)'
