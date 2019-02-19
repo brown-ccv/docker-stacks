@@ -50,7 +50,7 @@ RUN apt-get install -yq --no-install-recommends \
 
 # Get and configure apt repo for latest version
 # see https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/#apt-repo-fresh-install
-ENV MYSQL_APT_VERSION 0.8.11-1_all
+ENV MYSQL_APT_VERSION 0.8.12-1_all
 RUN cd /tmp/ && wget https://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_VERSION}.deb && \
     dpkg -i mysql-apt-config_${MYSQL_APT_VERSION}.deb
 
