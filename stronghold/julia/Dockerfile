@@ -16,7 +16,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     locales \
     fonts-liberation \
     firefox \
-    vte \
+    libvte-common \
     git \
     gpg \
     emacs nano vim \
@@ -33,7 +33,9 @@ ENV SHELL=/bin/bash \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8
-# HOME=/?
+    # \
+    # PROMPT_COMMAND=
+
 
 # Add some other useful tools and dependencies
 RUN apt-get install -y screen cmake m4 hdf5-tools gettext libcurl4-openssl-dev libssl-dev\
