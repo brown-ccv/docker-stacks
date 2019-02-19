@@ -16,7 +16,6 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     locales \
     fonts-liberation \
     firefox \
-    libvte-common \
     git \
     gpg \
     emacs nano vim \
@@ -32,9 +31,8 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
 ENV SHELL=/bin/bash \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8
-    # \
-    # PROMPT_COMMAND=
+    LANGUAGE=en_US.UTF-8 \
+    PROMPT_COMMAND=
 
 
 # Add some other useful tools and dependencies
