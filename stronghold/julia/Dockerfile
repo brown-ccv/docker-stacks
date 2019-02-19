@@ -16,8 +16,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     locales \
     fonts-liberation \
     firefox \
-    vte3 \
-    vte-profile \
+    vte \
     git \
     gpg \
     emacs nano vim \
