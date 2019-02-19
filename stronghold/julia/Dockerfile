@@ -81,10 +81,12 @@ COPY julia_scripts/install_packages.jl /opt/scripts/
 COPY julia_scripts/base_pkgs.jl /opt/scripts/
 RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/base_pkgs.jl"); install(base_pkgs)'
 
-# Julia MySQL v0.7 ships with an outdated myslq client that prevents us to onnect to servers running
+# Julia MySQL v0.7 ships with an outdated myslq client that prevents us to Connect to servers running on Brown network
 # MySQL > v8.04 see - https://github.com/JuliaDatabases/MySQL.jl/issues/118
 RUN rm /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
-RUN cp /usr/lib/x86_64-linux-gnu/libmysqlclient.so /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
+RUN ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
+ENV LIBMYSQL_ENABLE_CLEARTEXT_PLUGIN y
+
 
 COPY julia_scripts/plotting_pkgs.jl /opt/scripts/
 RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/plotting_pkgs.jl"); install(plotting_pkgs)'
