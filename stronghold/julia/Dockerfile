@@ -58,7 +58,6 @@ RUN apt-get update && apt-get install -y mysql-client libmysqlclient-dev
 # ****************************** Julia ***************************
 # UPDATE THIS TO UPGRADE JULIA VERSION
 ENV JULIA_VERSION 1.1.0
-ENV JULIA_ENV_VERSION v1.1
 
 # get GPG key and install it to key ring, download and install julia
 RUN cd /tmp && \
