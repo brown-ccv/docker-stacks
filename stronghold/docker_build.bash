@@ -64,4 +64,9 @@ do
 	docker tag ${DOCKER_REPO}/${IMAGE_NAME}:${TAG} ${DOCKER_REPO}/${IMAGE_NAME}:latest
 	docker push ${DOCKER_REPO}/${IMAGE_NAME}:latest
 
+	# get julia manifests
+	if [[ $IMAGE == *"julia"* ]]; then
+		docker run -it --mount type=bind,source="$(pwd)/${IMAGE}",target=/app ${IMAGE_SPEC} cp /opt/julia/share/julia/environments/$(echo JULIA_ENV_VERSION)/Manifest.toml /app/${IMAGE}/Manifest.toml
+	fi
+
 done
