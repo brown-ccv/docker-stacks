@@ -51,7 +51,7 @@ do
 		exit 1
 	fi
 
-	GIT_REV=$(git log -n 1 --pretty=format:%h -- ${IMAGE})
+	GIT_REV=$(git log -n 1 --pretty=format:%h)
 	TAG="${GIT_REV}"
 
 	IMAGE_NAME=sh-${IMAGE}
