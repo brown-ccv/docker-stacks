@@ -67,7 +67,7 @@ do
 	# get julia manifests
 	if [[ $IMAGE == *"julia"* ]]; then
 		JULIA_VERSION=$(grep "ENV JULIA_VERSION" julia/Dockerfile | cut -f3 -d" " | cut -c1-3)
-		docker run -it --mount type=bind,source="$(pwd)/${IMAGE}",target=/app ${IMAGE_SPEC} cp /opt/julia/share/julia/environments/v${JULIA_VERSION}/Manifest.toml /app/${IMAGE}/Manifest.toml
+		docker run -it --mount type=bind,source="$(pwd)/${IMAGE}",target=/app/ ${IMAGE_SPEC} cp /opt/julia/share/julia/environments/v${JULIA_VERSION}/Manifest.toml /app/Manifest.toml
 	fi
 
 done
