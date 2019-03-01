@@ -14,6 +14,7 @@ RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/
 
 # manually install jupyter since it doesn't ask to install until prompted when running a notebook
 RUN /opt/julia/share/julia/conda/3/bin/conda install -y jupyter
+RUN /opt/julia/share/julia/conda/3/bin/conda install -y jupyterlab
 RUN julia -e 'using IJulia; ENV["JUPYTER_DATA_DIR"]="/opt/julia/share/julia/conda/3/share/jupyter";installkernel("Julia","-O2")'
 
 #remove pre-compiled libraries as it creates permission errors
