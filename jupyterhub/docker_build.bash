@@ -36,6 +36,9 @@ fi
 
 IFS='-' read -r -a images <<< "$1"
 
+GIT_REV=$(git log -n 1 --pretty=format:%h)
+TAG="${GIT_REV}"
+
 for index in "${!images[@]}"
 do
     IMAGE=${images[0]}
@@ -50,9 +53,6 @@ do
 		echo "No such file: ${IMAGE}/Dockerfile"
 		exit 1
 	fi
-
-	GIT_REV=$(git log -n 1 --pretty=format:%h -- ${IMAGE})
-	TAG="${GIT_REV}"
 
 	IMAGE_NAME=jupyterhub-${IMAGE}
 	IMAGE_SPEC="${DOCKER_REPO}/${IMAGE_NAME}:${TAG}"
