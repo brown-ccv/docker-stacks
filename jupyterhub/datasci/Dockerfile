@@ -78,6 +78,7 @@ RUN conda update python numpy matplotlib pandas bokeh
 
 #altair https://altair-viz.github.io
 RUN conda install -c conda-forge altair vega_datasets &&\
+    conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
