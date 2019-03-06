@@ -35,6 +35,11 @@ RUN pip install RISE && \
     jupyter nbextension enable rise --py --sys-prefix &&\
     npm cache clean --force
 
+RUN jupyter labextension install @jupyterlab/git && \
+    pip install jupyterlab-git && \
+    jupyter serverextension enable --py jupyterlab_git &&\
+    npm cache clean --force
+
 # Clean up and fix permissions    
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
@@ -65,3 +70,24 @@ RUN julia -e 'using Pkg; include(expanduser("~/scripts/install_packages.jl")); i
 
 # This allows precompilation to be remembered?
 ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
+
+# *********************Python Extras ***************************
+
+# update python numpy matplotlib pandas bokeh (jupyter-scipy are a bit old)
+RUN conda update python numpy matplotlib pandas bokeh
+
+#altair https://altair-viz.github.io
+RUN conda install -c conda-forge altair vega_datasets &&\
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+# *********************R Extras ***************************
+# R packages including IRKernel which gets installed globally.
+RUN conda install --quiet --yes \
+    'r-ggrepel' \
+    'r-maps' \
+    'r-gridextra' && \
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
