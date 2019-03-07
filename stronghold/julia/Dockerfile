@@ -89,22 +89,14 @@ RUN rm /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
 RUN ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /opt/julia/share/julia/packages/MySQL/owtkt/deps/usr/lib/libmariadb.so
 ENV LIBMYSQL_ENABLE_CLEARTEXT_PLUGIN y
 
-
 COPY julia_scripts/plotting_pkgs.jl /opt/scripts/
 RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/plotting_pkgs.jl"); install(plotting_pkgs)'
 
+COPY julia_scripts/ModifyRegistry.jl /opt/scripts/ModifyRegistry.jl
+RUN julia -e 'include("/opt/scripts/ModifyRegistry.jl"); ModifyRegistry.modify_registry("General", "23338594-aafe-5451-b93e-139f81909106", "StrongHoldGeneral", "a67460e4-2ee5-11e9-b210-d663bd873d93");'
+RUN rm -f /opt/scripts/ModifyRegistry.jl
+
 # set the julia registry using startup.jl
-RUN cd /opt/julia/share/julia/registries && \
-    mv General StrongHoldGeneral && \
-    cd StrongHoldGeneral && \
-    sed -i 's/name = "General"/name = "StrongHoldGeneral"/g' Registry.toml && \
-    sed -i 's/uuid = "23338594-aafe-5451-b93e-139f81909106"/uuid = "a67460e4-2ee5-11e9-b210-d663bd873d93"/g' Registry.toml && \
-    sed -i 's/repo = "https:\/\/github.com\/JuliaRegistries\/General.git"/repo = "\/opt\/julia\/share\/julia\/registries\/StrongHoldGeneral"/g' Registry.toml && \
-    git config --global user.email "stronghold-help@brown.edu" && \
-    git config --global user.name "Stronghold Team" && \
-    git add . && \
-    git commit -m "updating registry details for stronghold" && \
-    git remote remove origin
 COPY julia_scripts/sh_startup.jl /opt/julia/etc/julia/startup.jl
 
 # remove compiled packages from shared install
