@@ -2,6 +2,25 @@ FROM jupyter/minimal-notebook:eb149a8c333a
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
+
+# *********************As User ***************************
+USER root
+
+# *********************Unix tools ***************************
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get -yq dist-upgrade \
+    && apt-get install -yq --no-install-recommends \
+    openssh-client \
+    vim \ 
+    curl \
+    && apt-get clean
+
+USER $NB_UID
+
+
+RUN pip install --upgrade pip
+RUN npm i npm@latest -g
+
 # *********************As User ***************************
 USER $NB_UID
 
