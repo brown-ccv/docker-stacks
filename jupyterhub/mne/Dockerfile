@@ -1,4 +1,4 @@
-FROM jupyter/minimal-notebook:eb149a8c333a 
+FROM jupyter/scipy-notebook:eb149a8c333a 
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
@@ -70,7 +70,27 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
 #       from vtk import *
 #   ModuleNotFoundError: No module named 'vtk'
 
+######### Conda, docker builds but at run time we get errors
+#from mayavi import mlab
+# ---------------------------------------------------------------------------
+# ImportError                               Traceback (most recent call last)
+# /opt/conda/lib/python3.6/site-packages/vtk/vtkRenderingOpenGL2.py in <module>
+#       4     # use relative import for installed modules
+# ----> 5     from .vtkRenderingOpenGL2Python import *
+#       6 except ImportError:
+
+# ImportError: libGL.so.1: cannot open shared object file: No such file or directory
+
+
 RUN conda install --quiet --yes -c conda-forge mne &&\
     conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+################### Just the workshop######################
+
+# https://raw.githubusercontent.com/jasmainak/mne-workshop-brown/master/environment.yml
+
+RUN pip install mne && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
