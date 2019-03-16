@@ -82,10 +82,10 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
 # ImportError: libGL.so.1: cannot open shared object file: No such file or directory
 
 
-RUN conda install --quiet --yes -c conda-forge mne &&\
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+# RUN conda install --quiet --yes -c conda-forge mne &&\
+#     conda clean -tipsy && \
+#     fix-permissions $CONDA_DIR && \
+#     fix-permissions /home/$NB_USER
 
 ################### Just the workshop######################
 
