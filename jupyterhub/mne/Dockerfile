@@ -57,10 +57,20 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     fix-permissions /home/$NB_USER
 
 
-# *********************MNE ***************************
-RUN curl -O https://raw.githubusercontent.com/mne-tools/mne-python/master/environment.yml
+# *********************MNE Directions***************************
+# RUN curl -O https://raw.githubusercontent.com/mne-tools/mne-python/master/environment.yml
 
-RUN conda env create -f environment.yml &&\
+# RUN conda env create -f environment.yml &&\
+#     conda clean -tipsy && \
+#     fix-permissions $CONDA_DIR && \
+#     fix-permissions /home/$NB_USER
+
+# Error for mayavi
+#  File "tvtk/vtk_module.py", line 15, in <module>
+#       from vtk import *
+#   ModuleNotFoundError: No module named 'vtk'
+
+RUN conda install --quiet --yes -c conda-forge mne &&\
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
