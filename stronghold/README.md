@@ -22,10 +22,10 @@ Home of docker/singularity containers managed by the Data Science Practice build
     ./build.bash [ -r REGISTRY ] [ image_folder ]
     ```
 
-    The `-r` option can be a docker container registry, e.g. hub.docker/YOUR_ORG. 
+    The `-r` option can be a docker container registry, e.g. hub.docker/YOUR_ORG.
 
 Notes:
-* Each docker image is tagged with the git commit hash corresponding with the last git revision of the build files. 
+* Each docker image is tagged with the git commit hash corresponding with the last git revision of the build files.
 * These images are also intended to use by Singularity, therefore any content placed in $HOME and /tmp/ will be overwritten or inaccessible
 
 ---
@@ -52,7 +52,7 @@ docker pull browndatasci/julia_base:$TAG
 
 ### Build image
 ```bash
-./docker_build.bash -r browndatasci julia_base
+./docker_build.bash -r browndatasci julia-datasci-bio
 ```
 
 ### Run docker image
@@ -72,7 +72,7 @@ Appends stats, and machine learning packages to Julia's base image
 
 ### Build image
 ```
-./docker_build.bash -r browndatasci julia_datasci
+./docker_build.bash -r brownccv julia-datasci-bio
 ```
 
 ---
