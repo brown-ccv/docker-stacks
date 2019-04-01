@@ -91,6 +91,13 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
 
 # https://raw.githubusercontent.com/jasmainak/mne-workshop-brown/master/environment.yml
 
-RUN pip install mne && \
+RUN pip install mayavi && \
+    pip install PyQt5 && \
+    pip install pysurfer && \
+    pip install mne && \
+    pip install https://api.github.com/repos/autoreject/autoreject/zipball/master && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
+
+RUN jupyter nbextension install mayavi --py --sys-prefix && \
+    npm cache clean --force
