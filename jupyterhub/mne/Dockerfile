@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook:eb149a8c333a 
+FROM jupyter/base-notebook:65761486d5d3 
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
