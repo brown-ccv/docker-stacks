@@ -106,11 +106,24 @@ RUN jupyter nbextension install mayavi --py --sys-prefix && \
 
 USER root
 
-RUN apt-get install -yq --no-install-recommends xvfb && \
+RUN apt-get install -yq --no-install-recommends xvfb x11-utils && \
     apt-get clean
 
-ENTRYPOINT ["xvfb-run", "--server-args", "-screen 0 1920x1080x24",  "/opt/jupyterhub/bin/start.sh"]
+# ENTRYPOINT ["xvfb-run", "--server-args", "-screen 0 1920x1080x24",  "start.sh"]
 # CMD ["xvfb-run", "--server-args", "-screen 0 1920x1080x24", "start-notebook.sh"]
 
 # Switch back to jovyan to avoid accidental container runs as root
-USER $NB_UID
+USER ${NB_UID}
+
+# # helper file for xvfb (for LavaVu)
+# ADD xvfb-run /usr/bin/
+# RUN chmod +x /usr/bin/xvfb-run
+# #ADD scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# # script for xvfb-run.  all docker commands will effectively run under this via the entrypoint
+# RUN printf "#\041/bin/sh \n rm -f /tmp/.X99-lock && xvfb-run -s '-screen 0 1600x1200x16' \$@" >> /usr/local/bin/xvfbrun.sh && \
+# chmod +x /usr/local/bin/xvfbrun.sh
+
+# note we use xvfb which to mimic the X display for lavavu
+# ENTRYPOINT ["/tini", "--", "/usr/local/bin/xvfbrun.sh"]
+ENTRYPOINT ["tini", "-g", "--", "xvfb-run"]
