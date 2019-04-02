@@ -101,4 +101,5 @@ RUN pip install vtk && \
     fix-permissions /home/$NB_USER
 
 RUN jupyter nbextension install mayavi --py --sys-prefix && \
+    jupyter nbextension enable mayavi --py --sys-prefix && \
     npm cache clean --force
