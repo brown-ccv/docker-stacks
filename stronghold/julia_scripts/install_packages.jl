@@ -41,6 +41,7 @@ function precompile(pkgs)
             pkg = split(p, "/")[2]
         catch
             pkg = p
+        end
         println("--------------------------------")
         println("Using Package: ", pkg)
         println("--------------------------------")
@@ -58,17 +59,4 @@ function precompile(pkgs)
     println("--------------------------------")
 
     return failed_pkgs
-end
-
-function precompile(pkgs)
-    failed_pkgs = Vector{String}()
-
-    for pkg in pkgs
-        try
-            pkg = split(pkg, "/")[2]
-        catch
-            pkg = pkg
-        end
-        println(pkg)
-    end
 end
