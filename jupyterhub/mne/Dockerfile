@@ -92,11 +92,21 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
 
 # https://raw.githubusercontent.com/jasmainak/mne-workshop-brown/master/environment.yml
 
+USER root
+
+RUN apt-get install -yq --no-install-recommends xvfb x11-utils libx11-xcb1 \
+    mesa-common-dev \
+    mesa-utils && \ 
+    apt-get clean
+
+USER ${NB_UID}
+
 RUN pip install vtk && \
     pip install numpy && \
     pip install mayavi && \
-    pip install PyQt5 && \
-    pip install pysurfer && \
+    pip install PyQt5
+    
+RUN pip install pysurfer && \
     pip install mne && \
     pip install https://api.github.com/repos/autoreject/autoreject/zipball/master && \
     fix-permissions $CONDA_DIR && \
@@ -106,26 +116,5 @@ RUN jupyter nbextension install mayavi --py --sys-prefix && \
     jupyter nbextension enable mayavi --py --sys-prefix && \
     npm cache clean --force
 
-USER root
 
-RUN apt-get install -yq --no-install-recommends xvfb x11-utils libx11-xcb1 && \
-    apt-get clean
-
-# ENTRYPOINT ["xvfb-run", "--server-args", "-screen 0 1920x1080x24",  "start.sh"]
-# CMD ["xvfb-run", "--server-args", "-screen 0 1920x1080x24", "start-notebook.sh"]
-
-# Switch back to jovyan to avoid accidental container runs as root
-USER ${NB_UID}
-
-# # helper file for xvfb (for LavaVu)
-# ADD xvfb-run /usr/bin/
-# RUN chmod +x /usr/bin/xvfb-run
-# #ADD scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
-
-# # script for xvfb-run.  all docker commands will effectively run under this via the entrypoint
-# RUN printf "#\041/bin/sh \n rm -f /tmp/.X99-lock && xvfb-run -s '-screen 0 1600x1200x16' \$@" >> /usr/local/bin/xvfbrun.sh && \
-# chmod +x /usr/local/bin/xvfbrun.sh
-
-# note we use xvfb which to mimic the X display for lavavu
-# ENTRYPOINT ["/tini", "--", "/usr/local/bin/xvfbrun.sh"]
 ENTRYPOINT ["tini", "-g", "--", "xvfb-run"]
