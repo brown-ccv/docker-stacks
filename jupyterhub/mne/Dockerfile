@@ -109,7 +109,7 @@ USER root
 RUN apt-get install -yq --no-install-recommends xvfb && \
     apt-get clean
 
-# ENTRYPOINT ["xvfb-run", "--server-args", "-screen 0 1920x1080x24",  "/opt/jupyterhub/bin/start.sh"]
+ENTRYPOINT ["xvfb-run", "--server-args", "-screen 0 1920x1080x24",  "/opt/jupyterhub/bin/start.sh"]
 CMD ["xvfb-run", "--server-args", "-screen 0 1920x1080x24", "start-notebook.sh"]
 
 # Switch back to jovyan to avoid accidental container runs as root
