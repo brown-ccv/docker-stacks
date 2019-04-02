@@ -13,6 +13,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     openssh-client \
     vim \ 
     curl \
+    gcc \
     && apt-get clean
 
 USER $NB_UID
