@@ -1,4 +1,4 @@
-FROM jupyter/base-notebook:65761486d5d3 
+FROM jupyter/minimal-notebook:65761486d5d3 
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
