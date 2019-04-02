@@ -91,7 +91,8 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
 
 # https://raw.githubusercontent.com/jasmainak/mne-workshop-brown/master/environment.yml
 
-RUN pip install mayavi && \
+RUN pip install vtk && \
+    pip install mayavi && \
     pip install PyQt5 && \
     pip install pysurfer && \
     pip install mne && \
