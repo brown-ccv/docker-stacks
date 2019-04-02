@@ -106,7 +106,7 @@ RUN jupyter nbextension install mayavi --py --sys-prefix && \
 
 USER root
 
-RUN apt-get install -yq --no-install-recommends xvfb x11-utils && \
+RUN apt-get install -yq --no-install-recommends xvfb x11-utils libx11-xcb1 && \
     apt-get clean
 
 # ENTRYPOINT ["xvfb-run", "--server-args", "-screen 0 1920x1080x24",  "start.sh"]
