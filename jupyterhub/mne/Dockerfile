@@ -57,41 +57,6 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-
-# *********************MNE Directions***************************
-# RUN curl -O https://raw.githubusercontent.com/mne-tools/mne-python/master/environment.yml
-
-# RUN conda env create -f environment.yml &&\
-#     conda clean -tipsy && \
-#     fix-permissions $CONDA_DIR && \
-#     fix-permissions /home/$NB_USER
-
-# Error for mayavi
-#  File "tvtk/vtk_module.py", line 15, in <module>
-#       from vtk import *
-#   ModuleNotFoundError: No module named 'vtk'
-
-######### Conda, docker builds but at run time we get errors
-#from mayavi import mlab
-# ---------------------------------------------------------------------------
-# ImportError                               Traceback (most recent call last)
-# /opt/conda/lib/python3.6/site-packages/vtk/vtkRenderingOpenGL2.py in <module>
-#       4     # use relative import for installed modules
-# ----> 5     from .vtkRenderingOpenGL2Python import *
-#       6 except ImportError:
-
-# ImportError: libGL.so.1: cannot open shared object file: No such file or directory
-
-
-# RUN conda install --quiet --yes -c conda-forge mne &&\
-#     conda clean -tipsy && \
-#     fix-permissions $CONDA_DIR && \
-#     fix-permissions /home/$NB_USER
-
-################### Just the workshop######################
-
-# https://raw.githubusercontent.com/jasmainak/mne-workshop-brown/master/environment.yml
-
 USER root
 
 RUN apt-get install -yq --no-install-recommends \
@@ -99,8 +64,6 @@ RUN apt-get install -yq --no-install-recommends \
     x11-utils \
     libx11-dev \
     qt5-default \
-    # mesa-common-dev \
-    # mesa-utils && \ 
     && apt-get clean
 
 ENV DISPLAY=:99
@@ -114,24 +77,10 @@ RUN pip install vtk && \
     pip install xvfbwrapper && \
     pip install mayavi
 
-# RUN conda install --quiet --yes \
-#     mayavi \
-#     pyqt=5 \
-#     vtk \
-#     numpy \
-#     scikit-learn && \
-#     conda clean -tipsy
-
-# RUN curl -O https://raw.githubusercontent.com/mne-tools/mne-python/master/environment.yml
-
-# RUN conda env create -f environment.yml &&\
-#     conda clean -tipsy && \
-#     fix-permissions $CONDA_DIR && \
-#     fix-permissions /home/$NB_USER
-
-# RUN pip install git+https://github.com/enthought/mayavi
     
-RUN pip install pysurfer && \
+RUN pip install scikit-learn && \
+    pip install nibabel && \
+    pip install pysurfer && \
     pip install mne && \
     pip install https://api.github.com/repos/autoreject/autoreject/zipball/master && \
     fix-permissions $CONDA_DIR && \
@@ -141,6 +90,5 @@ RUN jupyter nbextension install mayavi --py --sys-prefix && \
     jupyter nbextension enable mayavi --py --sys-prefix && \
     npm cache clean --force
 
-
+# Add an x-server to the entrypoint. This is needed by Mayavi
 ENTRYPOINT ["tini", "-g", "--", "xvfb-run"] 
-#, "--", ":99", "-screen", "0", "1400x900x24", "-ac", "+extension", "GLX", "+render", "-noreset"]
