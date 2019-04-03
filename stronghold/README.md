@@ -14,7 +14,7 @@ Home of docker/singularity containers managed by the Data Science Practice build
 
 * Clone this repository
     ```bash
-    git clone https://github.com/brown-data-science/docker-stacks.git
+    git clone https://github.com/brown-ccv/docker-stacks.git
     ```
 
 * Run the build script to generate Docker images.
@@ -33,6 +33,9 @@ Notes:
 
 * [Julia Base](#julia-base)
 * [Julia Data Science](#julia-data-science)
+* [Julia Data Science Python](#julia-data-science-python)
+* [Julia Biojulia](#biojulia)
+* [Julia MLJ](#julia-mlj)
 * BCBI Base
 * [Ctakes](#ctakes)
 ---
@@ -40,19 +43,19 @@ Notes:
 
 ### Repository
 
-This [repo](https://hub.docker.com/r/browndatasci/julia_base/) lives in DockeHub.
+This [repo](https://hub.docker.com/r/brownccv/sh-julia/) lives in DockeHub.
 
 ### Pull Command
 
 ```bash
-docker pull browndatasci/julia_base:$TAG
+docker pull brownccv/sh-julia:$TAG
 ```
 
 `$TAG` must be specified
 
 ### Build image
 ```bash
-./docker_build.bash -r browndatasci julia-datasci-bio
+./docker_build.bash -r brownccv julia-datasci
 ```
 
 ### Run docker image
@@ -60,21 +63,46 @@ docker pull browndatasci/julia_base:$TAG
 The image can be call as an executable with the desired application. E.g.,
 
 ```bash
-docker run -it browndatasci/julia_base:tag bash
-docker run -it browndatasci/julia_base:tag julia
-docker run -it browndatasci/julia_base:tag mysql -h 'hostname' -u 'username' -p
+docker run -it brownccv/julia_base:tag bash
+docker run -it brownccv/julia_base:tag julia
+docker run -it brownccv/julia_base:tag mysql -h 'hostname' -u 'username' -p
 ```
 
 ----
+
 ## Julia Data Science
 
 Appends stats, and machine learning packages to Julia's base image
 
 ### Build image
 ```
+./docker_build.bash -r brownccv julia-datasci
+```
+
+## Julia Data Science Python
+
+Appends stats, machine learning, and python-related packages to Julia's base image
+
+### Build image
+```
+./docker_build.bash -r brownccv julia-datasci-py
+```
+
+## BioJulia
+Appends BioJulia packages to Julia Data Science image
+
+### Build image
+```
 ./docker_build.bash -r brownccv julia-datasci-bio
 ```
 
+## Julia MLJ
+Appends MLJ-related packages to Julia Data Science Python image
+
+### Build image
+```
+./docker_build.bash -r brownccv julia-datasci-py-mlj
+```
 ---
 ## Ctakes
 
@@ -90,7 +118,7 @@ Appends stats, and machine learning packages to Julia's base image
 The image can be call as an executable with the desired application
 
 ```bash
-docker run -it browndatasci/julia_datasci:tag bash
-docker run -it browndatasci/julia_datasci:tag julia
-docker run -it browndatasci/julia_datasci:tag mysql -h 'hostname' -u 'username' -p
+docker run -it brownccv/julia-datasci:tag bash
+docker run -it brownccv/julia-datasci:tag julia
+docker run -it brownccv/julia-datasci:tag mysql -h 'hostname' -u 'username' -p
 ```
