@@ -109,7 +109,9 @@ USER ${NB_UID}
 
 RUN pip install vtk && \
     pip install numpy && \
-    pip install pyqt5
+    pip install pyqt5 && \
+    pip install xvfbwrapper && \
+    pip install mayavi
 
 # RUN conda install --quiet --yes \
 #     mayavi \
