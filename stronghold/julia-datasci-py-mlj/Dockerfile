@@ -1,4 +1,4 @@
-FROM browndatasci/sh-julia-datasci-py:latest
+FROM brownccv/sh-julia-datasci-py:latest
 
 MAINTAINER Stronghold Help <stronghold-help@brown.edu>
 
