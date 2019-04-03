@@ -1,4 +1,4 @@
-FROM jupyter/minimal-notebook:137a295ff71b 
+FROM jupyter/minimal-notebook:65761486d5d3 
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
@@ -94,17 +94,22 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
 
 USER root
 
-RUN apt-get install -yq --no-install-recommends xvfb x11-utils libx11-dev \
-    python3-pyqt5 \
-    mesa-common-dev \
-    mesa-utils && \ 
+RUN apt-get install -yq --no-install-recommends \
+    xvfb \
+    x11-utils \
+    libx11-dev \
+    qt5-default \
+    # mesa-common-dev \
+    # mesa-utils && \ 
     apt-get clean
+
+ENV DISPLAY=:99
 
 USER ${NB_UID}
 
-# RUN pip install vtk && \
-#     pip install numpy && \
-#     pip install PyQt5
+RUN pip install vtk && \
+    pip install numpy && \
+    pip install pyqt5
 
 # RUN conda install --quiet --yes \
 #     mayavi \
@@ -114,12 +119,12 @@ USER ${NB_UID}
 #     scikit-learn && \
 #     conda clean -tipsy
 
-RUN curl -O https://raw.githubusercontent.com/mne-tools/mne-python/master/environment.yml
+# RUN curl -O https://raw.githubusercontent.com/mne-tools/mne-python/master/environment.yml
 
-RUN conda env create -f environment.yml &&\
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+# RUN conda env create -f environment.yml &&\
+#     conda clean -tipsy && \
+#     fix-permissions $CONDA_DIR && \
+#     fix-permissions /home/$NB_USER
 
 # RUN pip install git+https://github.com/enthought/mayavi
     
@@ -134,4 +139,4 @@ RUN jupyter nbextension install mayavi --py --sys-prefix && \
     npm cache clean --force
 
 
-ENTRYPOINT ["tini", "-g", "--", "xvfb-run"]
+ENTRYPOINT ["tini", "-g", "--", "xvfb-run", "--", ":99", "-screen", "0", "1400x900x24", "-ac", "+extension", "GLX", "+render", "-noreset"]
