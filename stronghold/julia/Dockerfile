@@ -20,6 +20,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     emacs nano vim \
     openssh-client\
     xdg-utils \
+    curl \
     && apt-get clean
 
 # not sure why this is needed but otherwise after installing miniconda we get

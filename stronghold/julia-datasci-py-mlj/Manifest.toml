@@ -324,6 +324,18 @@ git-tree-sha1 = "a8f6722b5e6da57ef46cbcd32faafdf4e84ac920"
 uuid = "497a8b3b-efae-58df-a0af-a86822472b78"
 version = "0.7.18"
 
+[[ElasticArrays]]
+deps = ["Compat"]
+git-tree-sha1 = "ea538a92534b6466338d00b913bc1adf6dea7588"
+uuid = "fdbdab4c-e67f-52f5-8c3f-e7b388dad3d4"
+version = "0.3.0"
+
+[[ElasticPDMats]]
+deps = ["LinearAlgebra", "MacroTools", "PDMats", "Test"]
+git-tree-sha1 = "c6ac4406d9b4a549f7316fc746f7ccd5f1bcd2cd"
+uuid = "2904ab23-551e-5aed-883f-487f97af5226"
+version = "0.2.1"
+
 [[EzXML]]
 deps = ["BinaryProvider", "Libdl", "Pkg", "Printf", "Test"]
 git-tree-sha1 = "ad00b79cca4bb3eabb4209217859c553af4401f5"
@@ -341,6 +353,12 @@ deps = ["LibCURL", "Test", "URIParser"]
 git-tree-sha1 = "b05c3be17947f29574a29ecfc850cd18d7f3c709"
 uuid = "01fcc997-4f28-56b8-8a06-30002c134abb"
 version = "1.0.0"
+
+[[FastGaussQuadrature]]
+deps = ["Compat", "LinearAlgebra", "SpecialFunctions"]
+git-tree-sha1 = "3861ecfe06076f9310a43469fbb676aaeba7893d"
+uuid = "442a2c76-b920-505d-bb47-c5924d526838"
+version = "0.3.2"
 
 [[FileIO]]
 deps = ["Pkg", "Random", "Test"]
@@ -414,6 +432,12 @@ deps = ["Base64", "CategoricalArrays", "Colors", "Compat", "Compose", "Contour",
 git-tree-sha1 = "ee709588c71eb62ce53cecf5a594bdefd6f2a9be"
 uuid = "c91e804a-d5a3-530f-b6f0-dfbca275c004"
 version = "1.0.1"
+
+[[GaussianProcesses]]
+deps = ["Distances", "Distributions", "ElasticArrays", "ElasticPDMats", "FastGaussQuadrature", "ForwardDiff", "LinearAlgebra", "Optim", "PDMats", "Printf", "Random", "RecipesBase", "ScikitLearnBase", "SpecialFunctions", "StaticArrays", "Statistics", "StatsFuns", "Test"]
+git-tree-sha1 = "d27b78ff418d683df83ea7ae74f4eb545a8504ae"
+uuid = "891a1506-143c-57d2-908e-e1f8e92e6de9"
+version = "0.9.0"
 
 [[GenericSVD]]
 deps = ["LinearAlgebra", "Random", "Test"]
@@ -690,6 +714,24 @@ git-tree-sha1 = "51e3d512848f96e0017338e1e7e3485ee2730e6e"
 uuid = "6f1432cf-f94c-5a45-995e-cdbf5db27b0b"
 version = "0.3.0"
 
+[[MLJ]]
+deps = ["CSV", "CategoricalArrays", "Dates", "Distributed", "Distributions", "LinearAlgebra", "MLJBase", "MLJModels", "MultivariateStats", "ProgressMeter", "Random", "RecipesBase", "RemoteFiles", "Requires", "Revise", "Statistics", "StatsBase", "TOML", "Tables"]
+path = "/opt/julia/share/julia/dev/MLJ"
+uuid = "add582a8-e3ab-11e8-2d5e-e98b27df1bc7"
+version = "0.1.0"
+
+[[MLJBase]]
+deps = ["CSV", "CategoricalArrays", "DataFrames", "Distributions", "InteractiveUtils", "Random", "SparseArrays", "Statistics", "StatsBase", "Tables"]
+path = "/opt/julia/share/julia/dev/MLJBase"
+uuid = "a7f614a8-145f-11e9-1d2a-a57a1082229d"
+version = "0.1.0"
+
+[[MLJModels]]
+deps = ["CategoricalArrays", "Distances", "Distributions", "LinearAlgebra", "MLJBase", "Random", "Requires", "TOML"]
+path = "/opt/julia/share/julia/dev/MLJModels"
+uuid = "d491faf4-2d78-11e9-2867-c94bc002c0b7"
+version = "0.1.0"
+
 [[MacroTools]]
 deps = ["Compat"]
 git-tree-sha1 = "3fd1a3022952128935b449c33552eb65895380c1"
@@ -751,6 +793,12 @@ git-tree-sha1 = "4bf69aaf823b119b034e091e16b18311aa191663"
 uuid = "78c3b35d-d492-501b-9361-3d52fe80e533"
 version = "0.5.7"
 
+[[MultivariateStats]]
+deps = ["Arpack", "LinearAlgebra", "Printf", "Random", "SparseArrays", "Statistics", "StatsBase", "Test"]
+git-tree-sha1 = "cf1c990020bc4a52ff34ba2ee058b7cb677141f2"
+uuid = "6f286f6a-111f-5878-ab1e-185364afe411"
+version = "0.6.0"
+
 [[Mustache]]
 deps = ["Printf", "Tables", "Test"]
 git-tree-sha1 = "3cc9a0b673519c5c39186e636d747facb12bf075"
@@ -786,6 +834,12 @@ deps = ["Compat"]
 git-tree-sha1 = "ce3b85e484a5d4c71dd5316215069311135fa9f2"
 uuid = "77ba4419-2d1f-58cd-9bb1-8ffee604a2e3"
 version = "0.3.2"
+
+[[NaiveBayes]]
+deps = ["Distributions", "HDF5", "Interpolations", "KernelDensity", "LinearAlgebra", "Random", "StatsBase", "Test"]
+git-tree-sha1 = "296d27a455ae074d3cb27f7edeff8e6532865f87"
+uuid = "9bbee03b-0db5-5f46-924f-b5c9c21b8c60"
+version = "0.4.0"
 
 [[NamedArrays]]
 deps = ["Combinatorics", "DataStructures", "DelimitedFiles", "LinearAlgebra", "Random", "Requires", "SparseArrays", "Statistics", "Test"]
@@ -1005,6 +1059,12 @@ git-tree-sha1 = "7b1d07f411bc8ddb7977ec7f377b97b158514fe0"
 uuid = "189a3867-3050-52da-a836-e630ba90ab69"
 version = "0.2.0"
 
+[[RemoteFiles]]
+deps = ["Dates", "HTTP", "Test"]
+git-tree-sha1 = "0bf57958308f3e3a6dcce1d34ec8225d6bc247ea"
+uuid = "cbe49d4c-5af1-5b60-bb70-0a60aa018e1b"
+version = "0.2.1"
+
 [[Requires]]
 deps = ["Test"]
 git-tree-sha1 = "f6fbf4ba64d295e146e49e021207993b6b48c7d1"
@@ -1155,6 +1215,12 @@ deps = ["LinearAlgebra", "Test"]
 git-tree-sha1 = "2039aaa96f7b21634a1b3246cb2699dd1d26d473"
 uuid = "7522ee7d-7047-56d0-94d9-4bc626e7058d"
 version = "0.2.0"
+
+[[TOML]]
+deps = ["Dates"]
+path = "/opt/julia/share/julia/dev/TOML"
+uuid = "191fdcea-f9f2-43e0-b922-d33f71e2abc3"
+version = "0.4.0"
 
 [[TableShowUtils]]
 deps = ["DataValues", "Dates", "JSON", "Markdown", "Test"]
