@@ -78,7 +78,8 @@ RUN pip install vtk && \
     pip install mayavi
 
     
-RUN pip install scikit-learn && \
+RUN pip install pillow && \
+    pip install scikit-learn && \
     pip install nibabel && \
     pip install pysurfer && \
     pip install mne && \
