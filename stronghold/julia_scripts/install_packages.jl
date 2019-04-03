@@ -37,10 +37,11 @@ function precompile(pkgs)
     failed_pkgs = Vector{String}()
 
     for p in pkgs
+        pkg = p
         try
             pkg = split(p, "/")[2]
         catch
-            pkg = p
+            continue
         end
         println("--------------------------------")
         println("Using Package: ", pkg)
