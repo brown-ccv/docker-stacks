@@ -115,7 +115,7 @@ Appends stats, and machine learning packages to Julia's base image
 
 ### Run docker image
 
-The image can be call as an executable with the desired application
+The image can be called as an executable with the desired application
 
 ```bash
 docker run -it brownccv/julia-datasci:tag bash

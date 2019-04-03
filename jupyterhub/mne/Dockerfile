@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook:eb149a8c333a 
+FROM jupyter/minimal-notebook:65761486d5d3 
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
@@ -13,6 +13,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     openssh-client \
     vim \ 
     curl \
+    gcc \
     && apt-get clean
 
 USER $NB_UID
@@ -56,41 +57,48 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
+USER root
 
-# *********************MNE Directions***************************
-# RUN curl -O https://raw.githubusercontent.com/mne-tools/mne-python/master/environment.yml
+RUN apt-get install -yq --no-install-recommends \
+    xvfb \
+    x11-utils \
+    libx11-dev \
+    qt5-default \
+    && apt-get clean
 
-# RUN conda env create -f environment.yml &&\
-#     conda clean -tipsy && \
-#     fix-permissions $CONDA_DIR && \
-#     fix-permissions /home/$NB_USER
+ENV DISPLAY=:99
 
-# Error for mayavi
-#  File "tvtk/vtk_module.py", line 15, in <module>
-#       from vtk import *
-#   ModuleNotFoundError: No module named 'vtk'
+USER ${NB_UID}
 
-######### Conda, docker builds but at run time we get errors
-#from mayavi import mlab
-# ---------------------------------------------------------------------------
-# ImportError                               Traceback (most recent call last)
-# /opt/conda/lib/python3.6/site-packages/vtk/vtkRenderingOpenGL2.py in <module>
-#       4     # use relative import for installed modules
-# ----> 5     from .vtkRenderingOpenGL2Python import *
-#       6 except ImportError:
+RUN pip install vtk && \
+    pip install numpy && \
+    pip install scipy && \
+    pip install pyqt5 && \
+    pip install xvfbwrapper && \
+    pip install mayavi
 
-# ImportError: libGL.so.1: cannot open shared object file: No such file or directory
+    
+RUN pip install ipywidgets && \
+    pip install pillow && \
+    pip install scikit-learn && \
+    pip install nibabel && \
+    pip install pysurfer && \
+    pip install mne && \
+    pip install https://api.github.com/repos/autoreject/autoreject/zipball/master
 
 
-# RUN conda install --quiet --yes -c conda-forge mne &&\
-#     conda clean -tipsy && \
-#     fix-permissions $CONDA_DIR && \
-#     fix-permissions /home/$NB_USER
+RUN jupyter nbextension install mayavi --py --sys-prefix && \
+    jupyter nbextension enable mayavi --py --sys-prefix && \
+    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager@^0.38.1 && \
+    npm cache clean --force
 
-################### Just the workshop######################
-
-# https://raw.githubusercontent.com/jasmainak/mne-workshop-brown/master/environment.yml
-
-RUN pip install mne && \
+# Clean up and fix permissions    
+RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
+    rm -rf /home/$NB_USER/.cache/yarn && \
+    rm -rf /home/$NB_USER/.node-gyp && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
+
+# Add an x-server to the entrypoint. This is needed by Mayavi
+ENTRYPOINT ["tini", "-g", "--", "xvfb-run"] 
