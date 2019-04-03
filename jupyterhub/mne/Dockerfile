@@ -142,4 +142,4 @@ RUN jupyter nbextension install mayavi --py --sys-prefix && \
     npm cache clean --force
 
 
-# ENTRYPOINT ["tini", "-g", "--", "xvfb-run", "--", ":99", "-screen", "0", "1400x900x24", "-ac", "+extension", "GLX", "+render", "-noreset"]
+ENTRYPOINT ["tini", "-g", "--", "xvfb-run", "--", ":99", "-screen", "0", "1400x900x24", "-ac", "+extension", "GLX", "+render", "-noreset"]
