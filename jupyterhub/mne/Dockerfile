@@ -101,7 +101,7 @@ RUN apt-get install -yq --no-install-recommends \
     qt5-default \
     # mesa-common-dev \
     # mesa-utils && \ 
-    apt-get clean
+    && apt-get clean
 
 ENV DISPLAY=:99
 
@@ -109,6 +109,7 @@ USER ${NB_UID}
 
 RUN pip install vtk && \
     pip install numpy && \
+    pip install scipy && \
     pip install pyqt5 && \
     pip install xvfbwrapper && \
     pip install mayavi
