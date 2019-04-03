@@ -78,18 +78,27 @@ RUN pip install vtk && \
     pip install mayavi
 
     
-RUN pip install pillow && \
+RUN pip install ipywidgets && \
+    pip install pillow && \
     pip install scikit-learn && \
     pip install nibabel && \
     pip install pysurfer && \
     pip install mne && \
     pip install https://api.github.com/repos/autoreject/autoreject/zipball/master && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+
 
 RUN jupyter nbextension install mayavi --py --sys-prefix && \
     jupyter nbextension enable mayavi --py --sys-prefix && \
+    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager@^0.38.1 && \
     npm cache clean --force
+
+# Clean up and fix permissions    
+RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
+    rm -rf /home/$NB_USER/.cache/yarn && \
+    rm -rf /home/$NB_USER/.node-gyp && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
 
 # Add an x-server to the entrypoint. This is needed by Mayavi
 ENTRYPOINT ["tini", "-g", "--", "xvfb-run"] 
