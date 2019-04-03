@@ -84,7 +84,7 @@ RUN pip install ipywidgets && \
     pip install nibabel && \
     pip install pysurfer && \
     pip install mne && \
-    pip install https://api.github.com/repos/autoreject/autoreject/zipball/master && \
+    pip install https://api.github.com/repos/autoreject/autoreject/zipball/master
 
 
 RUN jupyter nbextension install mayavi --py --sys-prefix && \
