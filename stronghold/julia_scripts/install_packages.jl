@@ -17,13 +17,32 @@ function install(pkgs)
 end
 
 """
+clone(pkgs)
+Call `Pkg.clone` on list of desired packages
+"""
+function clone(pkgs::Array)
+    for pkg in pkgs
+        println("--------------------------------")
+        println("Package: ", pkg)
+        println("--------------------------------")
+        Pkg.clone("https://github.com/$pkg")
+    end
+end
+
+"""
 precompile()
 Run `using` an all lists of packages
 """
 function precompile(pkgs)
     failed_pkgs = Vector{String}()
 
-    for pkg in pkgs
+    for p in pkgs
+        pkg = p
+        try
+            pkg = split(p, "/")[2]
+        catch
+            continue
+        end
         println("--------------------------------")
         println("Using Package: ", pkg)
         println("--------------------------------")
@@ -32,7 +51,7 @@ function precompile(pkgs)
             eval(:(using $pkgsym))
         catch
             warn("using pkg failed")
-            push!(failed_pkgs, pkg)
+            push!(failed_pkgs, p)
         end
     end
     println("--------------------------------")
