@@ -1,0 +1,7 @@
+config-yaml:
+  path-settings:
+    reference-directory: /data/tests/data/
+    git-directory: /data/git/
+    remote-repository: fernandogelin/refchef-test
+  log-settings:
+    log: 'yes'
