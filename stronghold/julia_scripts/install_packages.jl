@@ -13,8 +13,8 @@ function install(pkgs)
         println("Package: ", split(pkg, "#")[1])
         println("--------------------------------")
         if occursin("#", pkg)
-            p = split(pkg, "#")[1]
-            v = split(pkg, "#")[2]
+            p = String(split(pkg, "#")[1])
+            v = String(split(pkg, "#")[2])
             Pkg.add(Pkg.PackageSpec(name=p, version=v))
         else
             Pkg.add(pkg)
