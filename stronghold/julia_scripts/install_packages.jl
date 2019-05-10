@@ -10,15 +10,15 @@ Call `Pkg.add` and `using` on list of desired packages
 function install(pkgs)
     for pkg in pkgs
         println("--------------------------------")
-        println("Package: ", split(pkg, "#")[1])
+        println("Package: ", pkg
         println("--------------------------------")
         if occursin("#", pkg)
             p = String(split(pkg, "#")[1])
             r = String(split(pkg, "#")[2])
             Pkg.add(Pkg.PackageSpec(name=p, rev=r))
         elseif occursin("@", pkg)
-            p = String(split(pkg, "#")[1])
-            v = String(split(pkg, "#")[2])
+            p = String(split(pkg, "@")[1])
+            v = String(split(pkg, "@")[2])
             Pkg.add(Pkg.PackageSpec(name=p, version=v))
         else
             Pkg.add(pkg)
