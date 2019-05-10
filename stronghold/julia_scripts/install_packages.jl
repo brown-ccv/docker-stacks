@@ -10,9 +10,15 @@ Call `Pkg.add` and `using` on list of desired packages
 function install(pkgs)
     for pkg in pkgs
         println("--------------------------------")
-        println("Package: ", pkg)
+        println("Package: ", split(pkg, "#")[1])
         println("--------------------------------")
-        Pkg.add(pkg)
+        if "#" in pkg:
+            p = split(pkg, "#")[1]
+            v = split(pkg, "#")[2]
+            Pkg.add(Pkg.PackageSpec(name=p, version=v))
+        else
+            Pkg.add(pkg)
+        end
     end
 end
 

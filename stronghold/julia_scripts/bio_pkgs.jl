@@ -3,5 +3,5 @@ const bio_pkgs = [   "BioSequences",
                      "BioAlignments",
                      "BioStructures",
                      "GeneticVariation",
-                     "VariantVisualization#v0.3.6"
+                     "VariantVisualization#0.3.6"
                     ]
