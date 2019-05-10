@@ -12,7 +12,7 @@ function install(pkgs)
         println("--------------------------------")
         println("Package: ", split(pkg, "#")[1])
         println("--------------------------------")
-        if "#" in pkg
+        if occursin("#", pkg)
             p = split(pkg, "#")[1]
             v = split(pkg, "#")[2]
             Pkg.add(Pkg.PackageSpec(name=p, version=v))
