@@ -92,7 +92,7 @@ ENV LIBMYSQL_ENABLE_CLEARTEXT_PLUGIN y
 
 COPY julia_scripts/plotting_pkgs.jl /opt/scripts/
 RUN julia -e 'include("/opt/scripts/install_packages.jl"); include("/opt/scripts/plotting_pkgs.jl"); install(plotting_pkgs)'
-
+RUN ls
 # set the julia registry using startup.jl
 RUN cd /opt/julia/share/julia/registries && \
     mv General StrongHoldGeneral && \
@@ -106,6 +106,7 @@ RUN cd /opt/julia/share/julia/registries && \
     git commit -m "updating registry details for stronghold" && \
     git remote remove origin
 COPY julia_scripts/sh_startup.jl /opt/julia/etc/julia/startup.jl
+
 
 # remove compiled packages from shared install
 RUN JULIA_MAJOR_VERSION=$(echo v$JULIA_VERSION | cut -c1-4) && \
