@@ -10,7 +10,7 @@ Call `Pkg.add` and `using` on list of desired packages
 function install(pkgs)
     for pkg in pkgs
         println("--------------------------------")
-        println("Package: ", pkg
+        println("Package: ", pkg)
         println("--------------------------------")
         if occursin("#", pkg)
             p = String(split(pkg, "#")[1])
