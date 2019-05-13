@@ -9,6 +9,7 @@ RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/
 
 #remove pre-compiled libraries as it creates permission errors
 RUN rm -rf /opt/julia/share/julia/compiled
+RUN chmod 777 /opt/julia/share/julia/packages/VariantVisualization/*/
 
 #expose notebook and mysql port
 EXPOSE 8888 3306
