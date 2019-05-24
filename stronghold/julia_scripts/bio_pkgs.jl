@@ -1,4 +1,5 @@
-const bio_pkgs = [   "BioSequences",
+const bio_pkgs = [   "ArgParse",
+                     "BioSequences",
                      "GenomicFeatures",
                      "BioAlignments",
                      "BioStructures",
