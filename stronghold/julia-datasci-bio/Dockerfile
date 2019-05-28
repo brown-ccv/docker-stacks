@@ -4,6 +4,9 @@ MAINTAINER Stronghold Help <stronghold-help@brown.edu>
 
 
 COPY julia_scripts/bio_pkgs.jl /opt/scripts/
+RUN julia -e 'using Pkg; Pkg.add("Blink");'
+RUN julia -e 'using Blink; Blink.AtomShell.install();'
+
 RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/opt/scripts/bio_pkgs.jl"); Pkg.update(); install(bio_pkgs);'
 
 RUN apt-get install -y libgtk2.0-0 \
@@ -11,12 +14,7 @@ RUN apt-get install -y libgtk2.0-0 \
                        libxss1 \
                        libgconf-2-4 \
                        libnss3 \
-                       libssl1.0-dev \
-                       nodejs-dev \
-                       node-gyp \
-                       sudo
-
-RUN apt install -y nodejs npm
+                       libssl1.0-dev
 
 #remove pre-compiled libraries as it creates permission errors
 RUN rm -rf /opt/julia/share/julia/compiled
