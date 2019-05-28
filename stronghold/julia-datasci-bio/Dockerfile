@@ -4,10 +4,8 @@ MAINTAINER Stronghold Help <stronghold-help@brown.edu>
 
 
 COPY julia_scripts/bio_pkgs.jl /opt/scripts/
-RUN julia -e 'using Pkg; Pkg.add("Blink");'
-RUN julia -e 'using Blink; Blink.AtomShell.install();'
 
-RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/opt/scripts/bio_pkgs.jl"); Pkg.update(); install(bio_pkgs);'
+RUN xvfb-run julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/opt/scripts/bio_pkgs.jl"); Pkg.update(); install(bio_pkgs);'
 
 RUN apt-get install -y libgtk2.0-0 \
                        libxtst6 \
