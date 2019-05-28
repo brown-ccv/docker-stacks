@@ -8,7 +8,7 @@ RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/
 
 RUN apt-get install -y libgtk2.0-0 libxtst6 libxss1 libgconf-2-4 libnss3 libssl1.0-dev nodejs-dev node-gyp
 RUN apt install -y nodejs npm
-RUN npm install -g electron
+RUN sudo npm install -g electron
 
 #remove pre-compiled libraries as it creates permission errors
 RUN rm -rf /opt/julia/share/julia/compiled
