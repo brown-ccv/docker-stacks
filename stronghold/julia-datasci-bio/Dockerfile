@@ -10,13 +10,13 @@ RUN unzip -q electron-v4.0.4-linux-x64.zip -d atom
 
 RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/opt/scripts/bio_pkgs.jl"); Pkg.update(); install(bio_pkgs);'
 
-RUN apt-get install -y libgtk2.0-0 \
+RUN apt-get install -y unzip \
+                       libgtk2.0-0 \
                        libxtst6 \
                        libxss1 \
                        libgconf-2-4 \
                        libnss3 \
                        libssl1.0-dev \
-                       unzip
 
 #remove pre-compiled libraries as it creates permission errors
 RUN rm -rf /opt/julia/share/julia/compiled
