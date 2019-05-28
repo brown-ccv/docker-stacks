@@ -4,5 +4,8 @@ const bio_pkgs = [   "ArgParse",
                      "BioAlignments",
                      "BioStructures",
                      "GeneticVariation",
+                     "Blink",
+                     "PlotlyJS",
+                     "Rsvg",
                      "VariantVisualization#master"
                     ]
