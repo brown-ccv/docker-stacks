@@ -6,7 +6,7 @@ MAINTAINER Stronghold Help <stronghold-help@brown.edu>
 COPY julia_scripts/bio_pkgs.jl /opt/scripts/
 RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/opt/scripts/bio_pkgs.jl"); Pkg.update(); install(bio_pkgs);'
 
-RUN apt-get install -y libgtk2.0-0 libxtst6 libxss1 libgconf-2-4 libnss3 node-gyp
+RUN apt-get install -y libgtk2.0-0 libxtst6 libxss1 libgconf-2-4 libnss3 nodejs-dev node-gyp
 RUN apt install nodejs npm
 RUN npm install -g electron
 
