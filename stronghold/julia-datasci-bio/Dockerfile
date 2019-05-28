@@ -17,7 +17,6 @@ RUN apt-get install -y libgtk2.0-0 \
                        sudo
 
 RUN apt install -y nodejs npm
-RUN sudo npm install electron -g
 
 #remove pre-compiled libraries as it creates permission errors
 RUN rm -rf /opt/julia/share/julia/compiled
