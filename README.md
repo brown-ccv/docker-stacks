@@ -15,5 +15,5 @@ Home of docker/singularity containers managed by members of CCV
 
 * Clone this repository
     ```bash
-    git clone https://github.com/brown-data-science/docker-stacks.git
+    git clone https://github.com/brown-ccv/docker-stacks.git
     ```
