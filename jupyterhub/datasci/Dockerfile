@@ -19,33 +19,6 @@ USER $NB_UID
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
 
-# *********************Extensions ***************************
-
-# Install google-drive extension
-RUN jupyter labextension install @jupyterlab/google-drive
-
-# Install nbgitpuller extension
-RUN pip install nbgitpuller && \
-    jupyter serverextension enable --py nbgitpuller --sys-prefix && \
-    npm cache clean --force
-
-# Install RISE extension
-RUN pip install RISE && \
-    jupyter nbextension install rise --py --sys-prefix &&\
-    jupyter nbextension enable rise --py --sys-prefix &&\
-    npm cache clean --force
-
-# RUN jupyter labextension install @jupyterlab/git && \
-#     pip install jupyterlab-git && \
-#     jupyter serverextension enable --py jupyterlab_git &&\
-#     npm cache clean --force
-
-# Clean up and fix permissions    
-RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
-    rm -rf /home/$NB_USER/.cache/yarn && \
-    rm -rf /home/$NB_USER/.node-gyp && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
 
 # *********************Julia Packages ***************************
 RUN ls ~
@@ -92,3 +65,31 @@ RUN conda install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
+
+# *********************Extensions ***************************
+
+# Install google-drive extension -
+# RUN jupyter labextension install @jupyterlab/google-drive
+
+# Install nbgitpuller extension
+RUN pip install nbgitpuller && \
+    jupyter serverextension enable --py nbgitpuller --sys-prefix && \
+    npm cache clean --force
+
+# Install RISE extension
+RUN pip install RISE && \
+    jupyter nbextension install rise --py --sys-prefix &&\
+    jupyter nbextension enable rise --py --sys-prefix &&\
+    npm cache clean --force
+
+# RUN jupyter labextension install @jupyterlab/git && \
+#     pip install jupyterlab-git && \
+#     jupyter serverextension enable --py jupyterlab_git &&\
+#     npm cache clean --force
+
+# Clean up and fix permissions    
+RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
+    rm -rf /home/$NB_USER/.cache/yarn && \
+    rm -rf /home/$NB_USER/.node-gyp && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
