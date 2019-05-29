@@ -82,10 +82,10 @@ RUN pip install RISE && \
     jupyter nbextension enable rise --py --sys-prefix &&\
     npm cache clean --force
 
-# RUN jupyter labextension install @jupyterlab/git && \
-#     pip install jupyterlab-git && \
-#     jupyter serverextension enable --py jupyterlab_git &&\
-#     npm cache clean --force
+RUN jupyter labextension install @jupyterlab/git && \
+    pip install jupyterlab-git && \
+    jupyter serverextension enable --py jupyterlab_git &&\
+    npm cache clean --force
 
 # Clean up and fix permissions    
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
