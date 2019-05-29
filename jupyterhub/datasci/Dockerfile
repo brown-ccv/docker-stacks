@@ -84,7 +84,7 @@ RUN pip install RISE && \
 
 RUN jupyter labextension install @jupyterlab/git && \
     pip install jupyterlab-git && \
-    jupyter serverextension enable --py jupyterlab_git &&\
+    jupyter serverextension enable --py jupyterlab_git --sys-prefix &&\
     npm cache clean --force
 
 # Clean up and fix permissions    
