@@ -7,5 +7,5 @@ const bio_pkgs = [   "ArgParse",
                      "Blink",
                      "PlotlyJS",
                      "Rsvg",
-                     "VariantVisualization#master"
+                     "VariantVisualization"
                     ]
