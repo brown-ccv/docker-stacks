@@ -16,7 +16,7 @@ This repository contains the dockerfiles to use for singleuser images, spawened 
 The `-r` is the docker container registry. Building a given image, will build all dependants maintained in this repositore
 
 For example to build the singleuser image, you would run 
-`./docker_build.bash -r browndatasci scipy-plus-lab`
+`./docker_build.bash -r brownccv scipy-plus-lab`
 
 Each docker image is tagged with the git commit hash corresponding with the last git revision of the build files. A `latest` tag is also pushed 
 
@@ -25,7 +25,7 @@ Each docker image is tagged with the git commit hash corresponding with the last
 
 :warning: The subdirectories names are hierachical, where `-` separates dependant images. During the buidl process, dependent images are build in order. For instance, running:
 
-`./docker_build.bash -r browndatasci datasci-dlgpu`
+`./docker_build.bash -r brownccv datasci-dlgpu`
 
 Will build the `datasci` image first and then `datasci-dlgpu`
 
@@ -35,7 +35,7 @@ Will build the `datasci` image first and then `datasci-dlgpu`
 While these images are created with our JupyterHub set up in mind, you can run them locally 
 
 ```
-docker run -it -p 8888:8888 browndatasci/jupyterhub-datasci-notebook:a1dee96
+docker run -it -p 8888:8888 brownccv/jupyterhub-datasci-notebook:a1dee96
 ```
 
 
@@ -44,5 +44,5 @@ Or
 Attach a `bash` session 
 
 ```
-docker run -it --entrypoint /bin/bash browndatasci/jupyterhub-datasci-notebook:a1dee96
+docker run -it --entrypoint /bin/bash brownccv/jupyterhub-datasci-notebook:a1dee96
 ```
