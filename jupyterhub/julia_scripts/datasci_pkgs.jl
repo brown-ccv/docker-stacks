@@ -10,10 +10,7 @@ const datasci_pkgs = [  "ClassImbalance",
                         "ROCAnalysis",
                         "LIBSVM",
                         "TextAnalysis",
-                        "WordTokenizers",
-                        "PlotlyJS",
-                        "PlotRecipes",
-                        "UnicodePlots"
+                        "WordTokenizers"
                     ]
 
 const dataset_pkgs = ["VegaDatasets", "RDatasets"]
