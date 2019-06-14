@@ -13,7 +13,7 @@ const datasci_pkgs = [  "ClassImbalance",
                         "WordTokenizers",
                         "Plotly",
                         "PlotlyJS",
-                        "PlotRecipes",
+                        "GraphRecipes",
                         "UnicodePlots"
                     ]
 
