@@ -26,7 +26,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     libxss1 \
     libgconf-2-4 \
     libnss3 \
-    libssl1.0-dev
+    libssl1.0-dev \
     && apt-get clean
 
 RUN apt-get install -y unzip
