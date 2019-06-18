@@ -7,5 +7,5 @@ const plotting_pkgs = [ "Gadfly",
                         "PlotlyJS",
                         "UnicodePlots",
                         "StatsPlots",
-                        "PlotRecipes",
+                        "GraphRecipes",
                         "DataVoyager"]
