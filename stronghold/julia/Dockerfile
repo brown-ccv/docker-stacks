@@ -20,7 +20,19 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     emacs nano vim \
     openssh-client\
     xdg-utils \
+    unzip \
+    libgtk2.0-0 \
+    libxtst6 \
+    libxss1 \
+    libgconf-2-4 \
+    libnss3 \
+    libssl1.0-dev
     && apt-get clean
+
+RUN apt-get install -y unzip
+
+RUN wget https://github.com/electron/electron/releases/download/v4.0.4/electron-v4.0.4-linux-x64.zip
+RUN unzip -q electron-v4.0.4-linux-x64.zip -d atom
 
 # not sure why this is needed but otherwise after installing miniconda we get
 #/bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
