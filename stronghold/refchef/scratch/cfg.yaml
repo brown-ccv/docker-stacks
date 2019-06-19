@@ -1,7 +1,0 @@
-config-yaml:
-  path-settings:
-    reference-directory: /scratch/data/
-    git-directory: /scratch/git/
-    remote-repository: fernandogelin/refchef-test
-  log-settings:
-    log: 'yes'
