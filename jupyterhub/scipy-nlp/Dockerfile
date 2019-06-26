@@ -11,6 +11,6 @@ RUN npm i npm@latest -g
 
 
 # *********************Python NLP libraries ***************************
-RUN pip install plotly nltk && \
+RUN pip install plotly nltk inflect contractions && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
