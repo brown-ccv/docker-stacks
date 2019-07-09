@@ -14,4 +14,5 @@ const datasci_pkgs = [  "ClassImbalance",
                         "SOM"
                     ]
 const git_pkgs = [ "bcbi/ARules.jl" ]
+
 const dataset_pkgs = ["VegaDatasets", "RDatasets"]
