@@ -1,4 +1,4 @@
-FROM ubuntu:18.10
+FROM ubuntu:bionic-20190515
 
 MAINTAINER Stronghold Help <stronghold-help@brown.edu>
 
