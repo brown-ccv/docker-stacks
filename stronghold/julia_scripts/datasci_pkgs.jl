@@ -10,7 +10,8 @@ const datasci_pkgs = [  "ClassImbalance",
                         "ROCAnalysis",
                         "LIBSVM",
                         "TextAnalysis",
-                        "WordTokenizers"
+                        "WordTokenizers",
+                        "SOM"
                     ]
-
+const git_pkgs = [ "bcbi/ARules.jl" ]
 const dataset_pkgs = ["VegaDatasets", "RDatasets"]

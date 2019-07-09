@@ -35,7 +35,7 @@ function clone(pkgs::Array)
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
-        Pkg.clone("https://github.com/$pkg")
+        Pkg.add("https://github.com/$pkg")
     end
 end
 
