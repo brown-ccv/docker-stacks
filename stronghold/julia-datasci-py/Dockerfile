@@ -11,6 +11,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
 
 COPY julia_scripts/external_pkgs.jl /opt/scripts/
 RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/opt/scripts/external_pkgs.jl"); Pkg.update(); install(external_pkgs); precompile(external_pkgs)'
+RUN julia -e 'using Pkg; Pkg.add("IJulia");'
 
 # manually install jupyter since it doesn't ask to install until prompted when running a notebook
 RUN /opt/julia/share/julia/conda/3/bin/conda install -y jupyter
