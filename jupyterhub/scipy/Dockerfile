@@ -31,6 +31,11 @@ RUN pip install RISE && \
     jupyter nbextension enable rise --py --sys-prefix &&\
     npm cache clean --force
 
+# Install iframe extension
+RUN pip install jupyterlab_iframe && \
+    jupyter labextension install jupyterlab_iframe && \
+    jupyter serverextension enable --py jupyterlab_iframe
+
 # Clean up and fix permissions
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
