@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:abdb27a6dfbb
+FROM jupyter/datascience-notebook:6c3390a9292e
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
