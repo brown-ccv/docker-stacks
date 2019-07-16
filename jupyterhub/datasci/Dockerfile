@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -yq dist-upgrade \
     && apt-get install -yq --no-install-recommends \
     openssh-client \
-    vim \ 
+    vim \
     && apt-get clean
 
 USER $NB_UID
@@ -68,8 +68,6 @@ RUN conda install --quiet --yes \
 
 # *********************Extensions ***************************
 
-# Install google-drive extension -
-# RUN jupyter labextension install @jupyterlab/google-drive
 
 # Install nbgitpuller extension
 RUN pip install nbgitpuller && \
@@ -87,7 +85,7 @@ RUN jupyter labextension install @jupyterlab/git && \
     jupyter serverextension enable --py jupyterlab_git --sys-prefix &&\
     npm cache clean --force
 
-# Clean up and fix permissions    
+# Clean up and fix permissions
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
     rm -rf /home/$NB_USER/.node-gyp && \
