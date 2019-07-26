@@ -102,11 +102,14 @@ RUN jupyter labextension install @jupyterlab/git && \
 
 # Install JupyterLab extensions
 RUN jupyter labextension install \
-            @jupyterlab/hub-extension \
+            @jupyterlab/vega2-extension \
+            @jupyterlab/vega3-extension \
             @jupyter-widgets/jupyterlab-manager \
             jupyter-matplotlib \
             @jupyterlab/plotly-extension \
-            @jupyterlab/geojson-extension
+            @jupyterlab/geojson-extension \
+            @jupyterlab/mathjax3-extension \
+            @jupyterlab/katex-extension
 
 # Clean up and fix permissions    
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \

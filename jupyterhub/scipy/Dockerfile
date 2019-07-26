@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook:2343e33dec46
+FROM jupyter/scipy-notebook:7a3e968dd212
 
 USER root
 
@@ -15,8 +15,10 @@ USER $NB_UID
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
 
-# Install google-drive extension
-RUN jupyter labextension install @jupyterlab/google-drive
+# *********************Extensions ***************************
+
+# Install google-drive extension -
+# RUN jupyter labextension install @jupyterlab/google-drive
 
 # Install nbgitpuller extension
 RUN pip install nbgitpuller && \
@@ -28,6 +30,22 @@ RUN pip install RISE && \
     jupyter nbextension install rise --py --sys-prefix &&\
     jupyter nbextension enable rise --py --sys-prefix &&\
     npm cache clean --force
+
+RUN jupyter labextension install @jupyterlab/git && \
+    pip install --upgrade jupyterlab-git && \
+    jupyter serverextension enable --py jupyterlab_git --sys-prefix &&\
+    npm cache clean --force
+
+# Install JupyterLab extensions
+RUN jupyter labextension install \
+            @jupyterlab/vega2-extension \
+            @jupyterlab/vega3-extension \
+            @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib \
+            @jupyterlab/plotly-extension \
+            @jupyterlab/geojson-extension \
+            @jupyterlab/mathjax3-extension \
+            @jupyterlab/katex-extension
 
 # Clean up and fix permissions    
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
