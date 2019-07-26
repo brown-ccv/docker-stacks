@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:abdb27a6dfbb
+FROM jupyter/datascience-notebook:7a3e968dd212
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
@@ -50,10 +50,23 @@ ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
 RUN conda update python numpy matplotlib pandas bokeh
 
 #altair https://altair-viz.github.io
-RUN conda install -c conda-forge altair vega_datasets &&\
+RUN conda install -c conda-forge altair vega_datasets xgboost lime plotly&&\
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
+
+#plotly and plotly-dash
+RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly &&\
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+#altair extra data science
+RUN conda install -c conda-forge xgboost lime &&\
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
 
 # *********************R Extras ***************************
 # R packages including IRKernel which gets installed globally.
