@@ -100,6 +100,14 @@ RUN jupyter labextension install @jupyterlab/git && \
     jupyter serverextension enable --py jupyterlab_git --sys-prefix &&\
     npm cache clean --force
 
+# Install JupyterLab extensions
+RUN jupyter labextension install \
+            @jupyterlab/hub-extension \
+            @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib \
+            @jupyterlab/plotly-extension \
+            @jupyterlab/geojson-extension
+
 # Clean up and fix permissions    
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
