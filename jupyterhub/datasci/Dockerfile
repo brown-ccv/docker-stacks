@@ -98,9 +98,6 @@ RUN jupyter labextension install @jupyterlab/git && \
     jupyter serverextension enable --py jupyterlab_git --sys-prefix &&\
     npm cache clean --force
 
-<<<<<<< HEAD
-# Clean up and fix permissions
-=======
 # Install JupyterLab extensions
 RUN jupyter labextension install \
             @jupyterlab/vega2-extension \
@@ -113,7 +110,6 @@ RUN jupyter labextension install \
             @jupyterlab/katex-extension
 
 # Clean up and fix permissions
->>>>>>> 6ed36c5d9f37c8f7d099310bf2559922512dd2b1
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
     rm -rf /home/$NB_USER/.node-gyp && \
