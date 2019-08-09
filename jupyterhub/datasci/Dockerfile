@@ -47,7 +47,7 @@ ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
 # *********************Python Extras ***************************
 
 # update python numpy matplotlib pandas bokeh (jupyter-scipy are a bit old)
-RUN conda update -n base conda python numpy matplotlib pandas bokeh
+RUN conda update -n root conda python numpy matplotlib pandas bokeh
 
 #altair https://altair-viz.github.io
 RUN conda install -c conda-forge altair vega_datasets xgboost lime plotly&&\
