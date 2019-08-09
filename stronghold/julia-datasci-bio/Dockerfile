@@ -3,12 +3,12 @@ FROM brownccv/sh-julia-datasci:latest
 MAINTAINER Stronghold Help <stronghold-help@brown.edu>
 
 
-COPY julia_scripts/bio_pkgs.jl /opt/scripts/
+COPY bio_pkgs.jl /opt/scripts/
 
 RUN apt-get install -y unzip
 
 RUN wget https://github.com/electron/electron/releases/download/v4.0.4/electron-v4.0.4-linux-x64.zip
-RUN unzip -q electron-v4.0.4-linux-x64.zip -d atom
+RUN unzip -qu electron-v4.0.4-linux-x64.zip -d atom
 
 RUN julia -e 'using Pkg; include("/opt/scripts/install_packages.jl"); include("/opt/scripts/bio_pkgs.jl"); Pkg.update(); install(bio_pkgs);'
 

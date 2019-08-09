@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:6c3390a9292e
+FROM jupyter/datascience-notebook:66c99628f4b8
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
@@ -50,10 +50,23 @@ ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
 RUN conda update python numpy matplotlib pandas bokeh
 
 #altair https://altair-viz.github.io
-RUN conda install -c conda-forge altair vega_datasets &&\
+RUN conda install -c conda-forge altair vega_datasets xgboost lime plotly&&\
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
+
+#plotly and plotly-dash
+RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly &&\
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+#altair extra data science
+RUN conda install -c conda-forge xgboost lime &&\
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
 
 # *********************R Extras ***************************
 # R packages including IRKernel which gets installed globally.
@@ -81,11 +94,26 @@ RUN pip install RISE && \
     npm cache clean --force
 
 RUN jupyter labextension install @jupyterlab/git && \
-    pip install jupyterlab-git && \
+    pip install --upgrade jupyterlab-git && \
     jupyter serverextension enable --py jupyterlab_git --sys-prefix &&\
     npm cache clean --force
 
+<<<<<<< HEAD
 # Clean up and fix permissions
+=======
+# Install JupyterLab extensions
+RUN jupyter labextension install \
+            @jupyterlab/vega2-extension \
+            @jupyterlab/vega3-extension \
+            @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib \
+            @jupyterlab/plotly-extension \
+            @jupyterlab/geojson-extension \
+            @jupyterlab/mathjax3-extension \
+            @jupyterlab/katex-extension
+
+# Clean up and fix permissions
+>>>>>>> 6ed36c5d9f37c8f7d099310bf2559922512dd2b1
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
     rm -rf /home/$NB_USER/.node-gyp && \

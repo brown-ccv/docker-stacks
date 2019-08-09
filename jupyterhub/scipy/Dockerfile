@@ -31,10 +31,21 @@ RUN pip install RISE && \
     jupyter nbextension enable rise --py --sys-prefix &&\
     npm cache clean --force
 
-# Install iframe extension
-RUN pip install jupyterlab_iframe && \
-    jupyter labextension install jupyterlab_iframe && \
-    jupyter serverextension enable --py jupyterlab_iframe
+RUN jupyter labextension install @jupyterlab/git && \
+    pip install --upgrade jupyterlab-git && \
+    jupyter serverextension enable --py jupyterlab_git --sys-prefix &&\
+    npm cache clean --force
+
+# Install JupyterLab extensions
+RUN jupyter labextension install \
+            @jupyterlab/vega2-extension \
+            @jupyterlab/vega3-extension \
+            @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib \
+            @jupyterlab/plotly-extension \
+            @jupyterlab/geojson-extension \
+            @jupyterlab/mathjax3-extension \
+            @jupyterlab/katex-extension
 
 # Clean up and fix permissions
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \

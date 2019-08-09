@@ -1,11 +1,7 @@
-const bio_pkgs = [   "ArgParse",
+const bio_pkgs = [ 
                      "BioSequences",
                      "GenomicFeatures",
                      "BioAlignments",
                      "BioStructures",
-                     "GeneticVariation",
-                     "Blink",
-                     "PlotlyJS",
-                     "Rsvg",
-                     "VariantVisualization"
+                     "VariantVisualization#develop"
                     ]

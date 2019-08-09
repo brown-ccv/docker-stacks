@@ -1,4 +1,4 @@
-FROM browndatasci/jupyterhub-datasci:latest
+FROM brownccv/jupyterhub-datasci:latest
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
