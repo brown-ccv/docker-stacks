@@ -8,9 +8,10 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     && apt-get install -yq --no-install-recommends \
     openssh-client \
     vim \
+    curl \
     && apt-get clean
 
-#Install ssh-keyreg    
+#Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
 RUN chmod +x /usr/local/bin/ssh-keyreg
 
