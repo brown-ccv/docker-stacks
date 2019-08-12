@@ -15,6 +15,10 @@ RUN apt-get update && apt-get -yq dist-upgrade \
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
 RUN chmod +x /usr/local/bin/ssh-keyreg
 
+# Add gitconfig script
+COPY ./scripts/gitconfig /usr/local/bin/gitconfig
+RUN chmod +x /usr/local/bin/gitconfig
+
 USER $NB_UID
 
 RUN pip install --upgrade pip

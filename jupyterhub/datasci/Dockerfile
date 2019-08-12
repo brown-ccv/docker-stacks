@@ -13,12 +13,15 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     vim \
     && apt-get clean
 
-#Install ssh-keyreg    
+#Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
 RUN chmod +x /usr/local/bin/ssh-keyreg
 
-USER $NB_UID
+# Add gitconfig script
+COPY ./scripts/gitconfig /usr/local/bin/gitconfig
+RUN chmod +x /usr/local/bin/gitconfig
 
+USER $NB_UID
 
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
