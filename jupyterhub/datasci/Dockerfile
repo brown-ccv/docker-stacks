@@ -13,6 +13,10 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     vim \
     && apt-get clean
 
+#Install ssh-keyreg    
+RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
+RUN chmod +x /usr/local/bin/ssh-keyreg
+
 USER $NB_UID
 
 
