@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:66c99628f4b8
+FROM jupyter/datascience-notebook:2ce7c06a61a1
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
@@ -66,13 +66,13 @@ RUN conda install -c conda-forge \
     fix-permissions /home/$NB_USER
 
 #plotly and plotly-dash
-RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly plotly_express &&\
+RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly  &&\
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
 #sswatson voayger-launch
-RUN pip install git+https://github.com/sswatson/voyager-launch
+RUN pip install git+https://github.com/sswatson/voyager-launch plotly_express
 
 
 # *********************R Extras ***************************
