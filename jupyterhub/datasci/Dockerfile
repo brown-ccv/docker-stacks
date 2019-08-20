@@ -55,22 +55,24 @@ ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
 
 
 #altair https://altair-viz.github.io
-RUN conda install -c conda-forge altair vega_datasets xgboost lime plotly&&\
+RUN conda install -c conda-forge \
+    altair \
+    vega_datasets \
+    xgboost \
+    lime \
+    feather-format &&\
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
 #plotly and plotly-dash
-RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly &&\
+RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly plotly_express &&\
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-#altair extra data science
-RUN conda install -c conda-forge xgboost lime &&\
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+#sswatson voayger-launch
+RUN pip install git+https://github.com/sswatson/voyager-launch
 
 
 # *********************R Extras ***************************
@@ -78,6 +80,10 @@ RUN conda install -c conda-forge xgboost lime &&\
 RUN conda install --quiet --yes \
     'r-ggrepel' \
     'r-maps' \
+    'r-feather' \
+    'r-esquisse' \
+    'r-knitr' \
+    'r-leaflet' \
     'r-gridextra' && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \

@@ -10,7 +10,26 @@ const datasci_pkgs = [  "ClassImbalance",
                         "ROCAnalysis",
                         "LIBSVM",
                         "TextAnalysis",
-                        "WordTokenizers"
+                        "WordTokenizers",
+                        "Ipopt",
+                        "JuMP",
+                        "Primes",
+                        "Distributions",
+                        "Roots",
+                        "Optim",
+                        "StatsBase",
+                        "MLDatasets",
+                        "Images",
+                        "TSne",
+                        "ProgressMeter",
+                        "DataFramesMeta",
+                        "SymPy",
+                        "TableView",
+                        "Weave",
+                        "QuadGK",
+                        "NLopt",
+                        "LaTeXStrings",
+                        "Feather"
                     ]
 
 const dataset_pkgs = ["VegaDatasets", "RDatasets"]
