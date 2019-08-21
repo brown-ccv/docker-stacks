@@ -1,8 +1,6 @@
 
 FROM brownccv/jupyterhub-scipy:latest
 
-MAINTAINER Jupyter Help <jupyter-help@brown.edu>
-
 USER root
 
 USER $NB_UID
