@@ -10,15 +10,21 @@ DOCKER_PUSH="docker push"
 FORCE=False
 NAMED_TAG="latest"
 
-while getopts "fr:" opt; do
+usage() {
+	echo "Usage:"
+	echo "     -h – help"
+	echo "     -r – Repository"
+	echo "     -t – Tag (e.g., fall19"
+	echo "     -f – Force build";
+}
+
+while getopts h:r:t:f opt; do
     echo $opt
-	case $opt in
+	case "${opt}" in
 		f) FORCE=True;;
-		r) DOCKER_REPO="$OPTARG";;
-		t) NAMED_TAG="$OPTARG";;
-		\? )
-		echo "Usage: $0  [-f:forces build if git out of date] [-r DOCKER_REPO] [ IMAGE_FOLDER ]"
-		;;
+		r) DOCKER_REPO={$OPTARG};;
+		t) NAMED_TAG={$OPTARG};;
+		h) usage; exit;;
 	esac
 done
 shift $((OPTIND-1))
