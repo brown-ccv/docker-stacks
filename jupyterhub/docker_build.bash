@@ -20,13 +20,13 @@ usage() {
 	echo "     -f – Force build";
 }
 
-while getopts h:r:t:f:s opt; do
+while getopts h:r:t:fs opt; do
     echo $opt
 	case "${opt}" in
 		f) FORCE=True;;
+		s) SKIP_PUSH=True;;
 		r) DOCKER_REPO=${OPTARG};;
 		t) NAMED_TAG=${OPTARG};;
-		s) SKIP_PUSH=${OPTARG};;
 		h) usage; exit;;
 	esac
 done
@@ -69,11 +69,13 @@ do
 	docker tag ${DOCKER_REPO}/${IMAGE_NAME}:${TAG} ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
 
 	echo "Build ${IMAGE_SPEC} and ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}"
-	
-	if ! ${SKIP_PUSH}; then
+
+	echo "Skip Push? $SKIP_PUSH"
+
+	if ! $SKIP_PUSH; then
+		echo "Pushed images"
 		${DOCKER_PUSH} ${IMAGE_SPEC}
 		${DOCKER_PUSH} ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
-		echo "Pushed images"
 	fi
 
 done
