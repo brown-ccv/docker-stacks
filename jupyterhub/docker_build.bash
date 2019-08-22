@@ -8,17 +8,23 @@ set -e
 DOCKER_REPO=""
 DOCKER_PUSH="docker push"
 FORCE=False
+NAMED_TAG="latest"
 
-while getopts "fr:" opt; do
+usage() {
+	echo "Usage:"
+	echo "     -h – help"
+	echo "     -r – Repository"
+	echo "     -t – Tag e.g., fall-19"
+	echo "     -f – Force build";
+}
+
+while getopts h:r:t:f opt; do
     echo $opt
-	case $opt in
-		f) FORCE=True 
-		;;
-		r) DOCKER_REPO="$OPTARG" 
-		;;
-		\? )
-		echo "Usage: $0  [-f:forces build if git out of date] [-r DOCKER_REPO] [ IMAGE_FOLDER ]"
-		;;
+	case "${opt}" in
+		f) FORCE=True;;
+		r) DOCKER_REPO=${OPTARG};;
+		t) NAMED_TAG=${OPTARG};;
+		h) usage; exit;;
 	esac
 done
 shift $((OPTIND-1))
@@ -61,8 +67,8 @@ do
 	echo "Pushed ${IMAGE_SPEC}"
 
 	# Create latest tag
-	docker tag ${DOCKER_REPO}/${IMAGE_NAME}:${TAG} ${DOCKER_REPO}/${IMAGE_NAME}:latest
-	docker push ${DOCKER_REPO}/${IMAGE_NAME}:latest
+	docker tag ${DOCKER_REPO}/${IMAGE_NAME}:${TAG} ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
+	docker push ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
 
 done
 

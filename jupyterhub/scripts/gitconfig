@@ -7,15 +7,13 @@ usage () { echo "Usage:"
            echo "     -n – Full name (Name that will appear in your Git commit message)"
            echo "     -e – Email (Email that will appear in your Git commit message)"; }
 
-while getopts n:e:u:h option
-do
-case "${option}"
-in
-n) NAME=${OPTARG};;
-e) EMAIL=${OPTARG};;
-u) USERNAME=${OPTARG};;
-h) usage; exit;;
-esac
+while getopts n:e:u:h option; do
+    case "${option}" in
+        n) NAME=${OPTARG};;
+        e) EMAIL=${OPTARG};;
+        u) USERNAME=${OPTARG};;
+        h) usage; exit;;
+    esac
 done
 
 if ((OPTIND < 7))
@@ -23,11 +21,21 @@ then
     echo "Incomplete options specified. Make sure to pass your name (-n), email (-e), and GitHub username (-u)"
 else
     # Generate SSH key no password
+    echo "*************************************************"
+    echo "Generating Key"
+    echo "*************************************************"
     ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
     # Add ssh key to Github
+    echo "*************************************************"
+    echo "Adding Key to GitHub"
+    echo "*************************************************"
     ssh-keyreg -p ~/.ssh/id_rsa.pub -u "$USERNAME" github
     # Config GitHub
-    git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+    echo "*************************************************"
+    echo "Configure Git Details"
+    echo "*************************************************"
     git config --global --add user.name $NAME
     git config --global --add user.email $EMAIL
+    git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+    
 fi
