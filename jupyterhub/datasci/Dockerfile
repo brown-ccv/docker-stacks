@@ -77,11 +77,3 @@ RUN tar xzf code-server1.1119-vsc1.33.1-linux-x64.tar.gz
 RUN mv code-server1.1119-vsc1.33.1-linux-x64/code-server /usr/local/bin/
 RUN rm code-server1.1119-vsc1.33.1-linux-x64.tar.gz
 RUN rm -rf code-server1.1119-vsc1.33.1-linux-x64
-
-
-# Clean up and fix permissions
-RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
-    rm -rf /home/$NB_USER/.cache/yarn && \
-    rm -rf /home/$NB_USER/.node-gyp && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
