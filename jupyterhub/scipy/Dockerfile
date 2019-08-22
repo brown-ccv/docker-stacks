@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook:7a3e968dd212
+FROM jupyter/scipy-notebook:latest
 
 USER root
 
