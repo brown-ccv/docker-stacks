@@ -2,15 +2,10 @@ FROM jupyter/scipy-notebook:latest
 
 USER root
 
-# Install missing tools
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get -yq dist-upgrade \
-    && apt-get install -yq --no-install-recommends \
-    openssh-client \
-    vim \
-    curl \
-    git-lfs\
-    && apt-get clean
+# Install missing systems tools
+COPY ./scripts/install_sys_deps.sh /tmp/install_sys_deps.sh
+RUN chmod +x install_sys_deps.sh
+RUN /tmp/install_sys_deps.sh 
 
 #Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
