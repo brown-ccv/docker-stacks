@@ -8,7 +8,7 @@ USER root
 # Install missing systems (apt-get) tools
 COPY ./scripts/install_sys_deps.sh /tmp/install_sys_deps.sh
 RUN chmod +x /tmp/install_sys_deps.sh
-RUN /tmp/install_sys_deps.sh 
+RUN /tmp/install_sys_deps.sh
 
 #Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
@@ -57,6 +57,7 @@ RUN conda install -c conda-forge \
     vega_datasets \
     xgboost \
     lime \
+    scanpy \
     feather-format &&\
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
@@ -81,6 +82,7 @@ RUN conda install --quiet --yes \
     'r-esquisse' \
     'r-knitr' \
     'r-leaflet' \
+    'r-seurat' \
     'r-gridextra' && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
