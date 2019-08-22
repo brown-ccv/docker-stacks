@@ -8,6 +8,7 @@ set -e
 DOCKER_REPO=""
 DOCKER_PUSH="docker push"
 FORCE=False
+SKIP_PUSH=False
 NAMED_TAG="latest"
 
 usage() {
@@ -15,15 +16,17 @@ usage() {
 	echo "     -h – help"
 	echo "     -r – Repository"
 	echo "     -t – Tag e.g., fall-19"
+	echo " 	   -s - Skip push"
 	echo "     -f – Force build";
 }
 
-while getopts h:r:t:f opt; do
+while getopts h:r:t:f:s opt; do
     echo $opt
 	case "${opt}" in
 		f) FORCE=True;;
 		r) DOCKER_REPO=${OPTARG};;
 		t) NAMED_TAG=${OPTARG};;
+		s) SKIP_PUSH=${OPTARG};;
 		h) usage; exit;;
 	esac
 done
@@ -63,12 +66,15 @@ do
 	IMAGE_NAME=jupyterhub-${IMAGE}
 	IMAGE_SPEC="${DOCKER_REPO}/${IMAGE_NAME}:${TAG}"
 	docker build -f ${IMAGE}/Dockerfile -t ${IMAGE_SPEC} .
-	${DOCKER_PUSH} ${IMAGE_SPEC}
-	echo "Pushed ${IMAGE_SPEC}"
-
-	# Create latest tag
 	docker tag ${DOCKER_REPO}/${IMAGE_NAME}:${TAG} ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
-	docker push ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
+
+	echo "Build ${IMAGE_SPEC} and ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}"
+	
+	if ! ${SKIP_PUSH}; then
+		${DOCKER_PUSH} ${IMAGE_SPEC}
+		${DOCKER_PUSH} ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
+		echo "Pushed images"
+	fi
 
 done
 
