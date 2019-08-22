@@ -1,0 +1,43 @@
+const plotting_pkgs = [ "Gadfly",
+                        "GR",
+                        "Plots",
+                        "VegaLite",
+                        "StatPlots",
+                        "PlotlyJS",
+                        "DataVoyager",
+                        "Interact"]
+
+const external_pkgs = ["PyCall", "PyPlot", "RCall"]
+const dataset_pkgs = ["VegaDatasets", "RDatasets"]
+                 
+const other_pkgs = [ "CSV",
+                     "DataFrames",
+                     "DataFramesMeta",
+                    "Distributions",
+                    "ClassImbalance",
+                    "Clustering",
+                    "DecisionTree",
+                    "Flux",
+                    "GLM",
+                    "GLMNet",
+                    "HypothesisTests",
+                    "Ipopt",
+                    "JuMP",
+                    "Primes",
+                    "Roots",
+                    "Optim",
+                    "StatsBase",
+                    "MLDatasets",
+                    "MLJ",
+                    "Images",
+                    "TSne",
+                    "ProgressMeter",
+                    "SymPy",
+                    "TableView",
+                    "Query",
+                    "Weave",
+                    "QuadGK",
+                    "NLopt",
+                    "LaTeXStrings",
+                    "Feather"
+                    ]
