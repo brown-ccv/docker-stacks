@@ -14,7 +14,7 @@ usage() {
 	echo "Usage:"
 	echo "     -h – help"
 	echo "     -r – Repository"
-	echo "     -t – Tag (e.g., fall19"
+	echo "     -t – Tag (e.g., fall-19"
 	echo "     -f – Force build";
 }
 
