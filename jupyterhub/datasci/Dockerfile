@@ -1,17 +1,14 @@
-FROM jupyter/datascience-notebook:2ce7c06a61a1
+FROM jupyter/datascience-notebook:latest
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
 
 USER root
 
-# Install missing tools
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get -yq dist-upgrade \
-    && apt-get install -yq --no-install-recommends \
-    openssh-client \
-    vim \
-    && apt-get clean
+# Install missing systems (apt-get) tools
+COPY ./scripts/install_sys_deps.sh /tmp/install_sys_deps.sh
+RUN chmod +x /tmp/install_sys_deps.sh
+RUN /tmp/install_sys_deps.sh 
 
 #Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
