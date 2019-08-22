@@ -68,7 +68,7 @@ do
 
 	# Create latest tag
 	docker tag ${DOCKER_REPO}/${IMAGE_NAME}:${TAG} ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
-	docker push ${DOCKER_REPO}/${IMAGE_NAME}:latest
+	docker push ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
 
 done
 
