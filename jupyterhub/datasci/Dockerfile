@@ -24,73 +24,11 @@ RUN pip install --upgrade pip
 RUN npm i npm@latest -g
 
 
-# *********************Julia Packages ***************************
-RUN ls ~
-
-RUN mkdir /home/$NB_USER/scripts
-
-RUN ls ~
-
-
-# Add packages, they are all split into different files/steps so Docker Caching can work better
-COPY ./julia_scripts/install_packages.jl /home/$NB_USER/scripts/
-COPY ./julia_scripts/base_pkgs.jl /home/$NB_USER/scripts/
-RUN julia -e 'include(expanduser("~/scripts/install_packages.jl")); include(expanduser("~/scripts/base_pkgs.jl")); install(base_pkgs)'
-
-COPY ./julia_scripts/plotting_pkgs.jl /home/$NB_USER/scripts/
-RUN julia -e 'include(expanduser("~/scripts/install_packages.jl")); include(expanduser("~/scripts/plotting_pkgs.jl")); install(plotting_pkgs)'
-
-COPY ./julia_scripts/datasci_pkgs.jl /home/$NB_USER/scripts/
-RUN julia -e 'using Pkg; include(expanduser("~/scripts/install_packages.jl")); include(expanduser("~/scripts/datasci_pkgs.jl")); Pkg.update(); install(datasci_pkgs)'
-
-RUN rm -rf ~/scripts
-
+# ********************* Julia ***************************
 # This allows precompilation to be remembered?
 ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
 
-# *********************Python Extras ***************************
-
-
-#altair https://altair-viz.github.io
-RUN conda install -c conda-forge \
-    altair \
-    vega_datasets \
-    xgboost \
-    lime \
-    scanpy \
-    feather-format &&\
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
-
-#plotly and plotly-dash
-RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly  &&\
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
-
-#sswatson voayger-launch
-RUN pip install git+https://github.com/sswatson/voyager-launch plotly_express
-
-
-# *********************R Extras ***************************
-# R packages including IRKernel which gets installed globally.
-RUN conda install --quiet --yes \
-    'r-ggrepel' \
-    'r-maps' \
-    'r-feather' \
-    'r-esquisse' \
-    'r-knitr' \
-    'r-leaflet' \
-    'r-seurat' \
-    'r-gridextra' && \
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
-
-
 # *********************Extensions ***************************
-
 
 # Install nbgitpuller extension
 RUN pip install nbgitpuller && \
