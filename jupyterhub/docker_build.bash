@@ -20,7 +20,7 @@ usage() {
 
 while getopts h:r:t:f opt; do
     echo $opt
-	case "${opt}" in
+	case $opt in
 		f) FORCE=True;;
 		r) DOCKER_REPO={$OPTARG};;
 		t) NAMED_TAG={$OPTARG};;
