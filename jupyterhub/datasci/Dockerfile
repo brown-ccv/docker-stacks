@@ -46,7 +46,7 @@ RUN julia -e 'include(expanduser("~/scripts/install_packages.jl")); include(expa
 COPY ./julia_scripts/datasci_pkgs.jl /home/$NB_USER/scripts/
 RUN julia -e 'using Pkg; include(expanduser("~/scripts/install_packages.jl")); include(expanduser("~/scripts/datasci_pkgs.jl")); Pkg.update(); install(datasci_pkgs)'
 
-#what about python packages?
+RUN rm -rf ~/scripts
 
 # This allows precompilation to be remembered?
 ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
@@ -119,6 +119,22 @@ RUN jupyter labextension install \
             @jupyterlab/geojson-extension \
             @jupyterlab/mathjax3-extension \
             @jupyterlab/katex-extension
+
+#Install VS Code
+RUN pip install jupyter-server-proxy
+RUN jupyter serverextension enable --sys-prefix --py jupyter_server_proxy
+RUN jupyter lab build
+#Install VSCode Proxy
+RUN pip install git+https://github.com/betatim/vscode-binder
+
+# Download and install VS Code server
+USER root
+RUN wget https://github.com/cdr/code-server/releases/download/1.1119-vsc1.33.1/code-server1.1119-vsc1.33.1-linux-x64.tar.gz
+RUN tar xzf code-server1.1119-vsc1.33.1-linux-x64.tar.gz
+RUN mv code-server1.1119-vsc1.33.1-linux-x64/code-server /usr/local/bin/
+RUN rm code-server1.1119-vsc1.33.1-linux-x64.tar.gz
+RUN rm -rf code-server1.1119-vsc1.33.1-linux-x64
+
 
 # Clean up and fix permissions
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
