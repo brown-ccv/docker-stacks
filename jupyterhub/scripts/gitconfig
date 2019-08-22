@@ -23,11 +23,21 @@ then
     echo "Incomplete options specified. Make sure to pass your name (-n), email (-e), and GitHub username (-u)"
 else
     # Generate SSH key no password
+    echo "*************************************************"
+    echo "Generating Key"
+    echo "*************************************************"
     ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
     # Add ssh key to Github
+    echo "*************************************************"
+    echo "Adding Key to GitHub"
+    echo "*************************************************"
     ssh-keyreg -p ~/.ssh/id_rsa.pub -u "$USERNAME" github
     # Config GitHub
-    git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+    echo "*************************************************"
+    echo "Configure Git Details"
+    echo "*************************************************"
     git config --global --add user.name $NAME
     git config --global --add user.email $EMAIL
+    git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+    
 fi

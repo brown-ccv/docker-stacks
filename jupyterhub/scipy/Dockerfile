@@ -9,6 +9,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     openssh-client \
     vim \
     curl \
+    git-lfs\
     && apt-get clean
 
 #Install ssh-keyreg
