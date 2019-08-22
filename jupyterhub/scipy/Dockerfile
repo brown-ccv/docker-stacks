@@ -2,7 +2,7 @@ FROM jupyter/scipy-notebook:latest
 
 USER root
 
-# Install missing systems tools
+# Install missing systems (apt-get) tools
 COPY ./scripts/install_sys_deps.sh /tmp/install_sys_deps.sh
 RUN chmod +x install_sys_deps.sh
 RUN /tmp/install_sys_deps.sh 
