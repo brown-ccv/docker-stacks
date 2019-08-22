@@ -27,7 +27,7 @@ RUN conda install -c conda-forge \
     xgboost \
     lime \
     feather-format &&\
-    conda clean -a && \
+    conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
