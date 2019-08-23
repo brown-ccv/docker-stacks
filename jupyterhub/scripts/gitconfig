@@ -34,8 +34,8 @@ else
     echo "*************************************************"
     echo "Configure Git Details"
     echo "*************************************************"
-    git config --global --add user.name $NAME
+    git config --global --add user.name "$NAME"
     git config --global --add user.email $EMAIL
     git config --global --add url."git@github.com:".insteadOf "https://github.com/"
-    
+
 fi

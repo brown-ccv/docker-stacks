@@ -2,8 +2,17 @@ FROM jupyter/datascience-notebook:latest
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
-
 USER root
+
+RUN apt-get update && \
+	apt-get install -y --no-install-recommends \
+		libapparmor1 \
+		libedit2 \
+		lsb-release \
+		psmisc \
+		libssl1.0.0 \
+		gdebi-core \
+		;
 
 # Install missing systems (apt-get) tools
 COPY ./scripts/install_sys_deps.sh /tmp/install_sys_deps.sh
@@ -70,6 +79,7 @@ RUN cd /tmp/ && \
 #Install VSCode Proxy
 RUN pip install git+https://github.com/betatim/vscode-binder
 
+
 # Download and install VS Code server
 USER root
 RUN wget https://github.com/cdr/code-server/releases/download/1.1119-vsc1.33.1/code-server1.1119-vsc1.33.1-linux-x64.tar.gz
@@ -77,3 +87,29 @@ RUN tar xzf code-server1.1119-vsc1.33.1-linux-x64.tar.gz
 RUN mv code-server1.1119-vsc1.33.1-linux-x64/code-server /usr/local/bin/
 RUN rm code-server1.1119-vsc1.33.1-linux-x64.tar.gz
 RUN rm -rf code-server1.1119-vsc1.33.1-linux-x64
+
+# ************** RStudio ********************
+
+# Official R-Studio 1.2 release
+ENV RSTUDIO_VERSION 1.2.1541
+RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-${RSTUDIO_VERSION}-amd64.deb \
+  && gdebi -n rstudio-server-${RSTUDIO_VERSION}-amd64.deb \
+  && rm rstudio-server-*-amd64.deb
+
+# link to Rstudio's pandoc
+RUN ln -s /usr/lib/rstudio-server/bin/pandoc/pandoc /usr/local/bin/pandoc
+
+# Shiny
+ENV SHINY_VERSION 1.5.9.923
+
+RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-${SHINY_VERSION}-amd64.deb \
+  && gdebi -n shiny-server-${SHINY_VERSION}-amd64.deb \
+  && rm shiny-server-*-amd64.deb
+
+USER $NB_USER
+
+RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy@master
+
+# The desktop package uses /usr/lib/rstudio/bin
+ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
+ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
