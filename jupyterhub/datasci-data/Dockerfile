@@ -39,7 +39,10 @@ RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-co
 
 #sswatson voayger-launch
 RUN pip install git+https://github.com/sswatson/voyager-launch plotly_express
+RUN pip install jupyterlab-dash
+# *********************Extensions ***************************
 
+RUN jupyter labextension install jupyterlab-dash@0.1.0-alpha.3
 
 # *********************R Extras ***************************
 # R packages including IRKernel which gets installed globally.
