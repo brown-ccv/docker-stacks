@@ -26,6 +26,7 @@ RUN conda install -c conda-forge \
     vega_datasets \
     xgboost \
     lime \
+    jupytext \
     feather-format &&\
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
@@ -43,6 +44,9 @@ RUN pip install jupyterlab-dash
 # *********************Extensions ***************************
 
 RUN jupyter labextension install jupyterlab-dash@0.1.0-alpha.3
+USER root
+RUN jupyter nbextension install --py jupytext
+USER $NB_UID
 
 # *********************R Extras ***************************
 # R packages including IRKernel which gets installed globally.
