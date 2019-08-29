@@ -20,16 +20,10 @@ RUN conda install -c conda-forge \
     xgboost \
     lime \
     jupytext \
-    feather-format &&\
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+    feather-format
 
 #plotly and plotly-dash
-RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly  &&\
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly 
 
 #sswatson voayger-launch
 RUN pip install git+https://github.com/sswatson/voyager-launch plotly_express
@@ -37,9 +31,7 @@ RUN pip install jupyterlab-dash
 # *********************Extensions ***************************
 
 RUN jupyter labextension install jupyterlab-dash@0.1.0-alpha.3
-USER root
-RUN jupyter nbextension install --py jupytext
-USER $NB_UID
+RUN jupyter nbextension install --py jupytext --sys-prefix
 
 # *********************R Extras ***************************
 # R packages including IRKernel which gets installed globally.
@@ -50,18 +42,12 @@ RUN conda install --quiet --yes \
     'r-esquisse' \
     'r-knitr' \
     'r-leaflet' \
-    'r-gridextra' && \
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+    'r-gridextra'
 
 # Clean up and fix permissions
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
     rm -rf /home/$NB_USER/.node-gyp && \
+    conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
-
-# ************** Fix latex/pdf export for nbconvert see -  https://github.com/jupyter/nbconvert/issues/786 ********************
-RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
-COPY ./misc_files/style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx

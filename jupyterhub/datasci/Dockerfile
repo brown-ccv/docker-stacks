@@ -11,13 +11,17 @@ RUN apt-get update && \
 		lsb-release \
 		psmisc \
 		libssl1.0.0 \
-		gdebi-core \
-		;
+		gdebi-core 
 
 # Install missing systems (apt-get) tools
 COPY ./scripts/install_sys_deps.sh /tmp/install_sys_deps.sh
 RUN chmod +x /tmp/install_sys_deps.sh
 RUN /tmp/install_sys_deps.sh
+
+# Install missing fonts
+COPY ./scripts/install_fonts.sh /tmp/install_fonts.sh
+RUN chmod +x /tmp/install_fonts.sh
+RUN /tmp/install_fonts.sh
 
 #Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
@@ -41,19 +45,16 @@ ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
 
 # Install nbgitpuller extension
 RUN pip install nbgitpuller && \
-    jupyter serverextension enable --py nbgitpuller --sys-prefix && \
-    npm cache clean --force
+    jupyter serverextension enable --py nbgitpuller --sys-prefix 
 
 # Install RISE extension
 RUN pip install RISE && \
     jupyter nbextension install rise --py --sys-prefix &&\
-    jupyter nbextension enable rise --py --sys-prefix &&\
-    npm cache clean --force
+    jupyter nbextension enable rise --py --sys-prefix 
 
 RUN jupyter labextension install @jupyterlab/git && \
     pip install --upgrade jupyterlab-git && \
-    jupyter serverextension enable --py jupyterlab_git --sys-prefix &&\
-    npm cache clean --force
+    jupyter serverextension enable --py jupyterlab_git --sys-prefix 
 
 # Install JupyterLab extensions
 RUN jupyter labextension install \
@@ -113,3 +114,16 @@ RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy@master
 # The desktop package uses /usr/lib/rstudio/bin
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
 ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
+
+# Clean up and fix permissions
+RUN npm cache clean --force && \
+    rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
+    rm -rf /home/$NB_USER/.cache/yarn && \
+    rm -rf /home/$NB_USER/.node-gyp && \
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+# ************** Fix latex/pdf export for nbconvert see -  https://github.com/jupyter/nbconvert/issues/786 ********************
+RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
+COPY ./misc_files/style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
