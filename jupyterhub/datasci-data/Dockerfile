@@ -5,18 +5,11 @@ MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 USER $NB_UID
 
 # *********************Julia Packages ***************************
-RUN ls ~
-
-RUN mkdir /home/$NB_USER/scripts
-
-RUN ls ~
 
 # Add packages, they are all split into different files/steps so Docker Caching can work better
-COPY ./julia_scripts/install_packages.jl /home/$NB_USER/scripts/
-COPY ./julia_scripts/julia_pkgs.jl /home/$NB_USER/scripts/
-RUN julia -e 'include(expanduser("~/scripts/install_packages.jl")); include(expanduser("~/scripts/julia_pkgs.jl")); install(plotting_pkgs); install(external_pkgs); install(dataset_pkgs); install(other_pkgs)'
-
-RUN rm -rf ~/scripts
+COPY ./julia_scripts/install_packages.jl /tmp
+COPY ./julia_scripts/julia_pkgs.jl /tmp
+RUN julia -e 'include(expanduser("/tmp/install_packages.jl")); include(expanduser("/tmp/julia_pkgs.jl")); install(plotting_pkgs); install(external_pkgs); install(dataset_pkgs); install(other_pkgs)'
 
 # *********************Python Extras ***************************
 
