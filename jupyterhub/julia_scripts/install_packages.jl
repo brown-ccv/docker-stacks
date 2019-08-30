@@ -16,7 +16,7 @@ end
 
 """
 precompile()
-Run `using` an all lists of packages
+Run `using` on all lists of packages
 """
 function precompile(pkgs)
     failed_pkgs = Vector{String}()
@@ -37,3 +37,5 @@ function precompile(pkgs)
     
     return failed_pkgs
 end
+
+precompile() = precompile([pkg for (pkg,version) in Pkg.installed()])
