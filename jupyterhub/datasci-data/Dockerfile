@@ -11,7 +11,7 @@ USER $NB_UID
 # Add packages, they are all split into different files/steps so Docker Caching can work better
 COPY ./julia_scripts/install_packages.jl /tmp
 COPY ./julia_scripts/julia_pkgs.jl /tmp
-RUN julia -e 'include(expanduser("/tmp/install_packages.jl")); include(expanduser("/tmp/julia_pkgs.jl")); install(plotting_pkgs); install(external_pkgs); install(dataset_pkgs); install(other_pkgs)'
+RUN julia -e 'include(expanduser("/tmp/install_packages.jl")); include(expanduser("/tmp/julia_pkgs.jl")); install(plotting_pkgs); install(external_pkgs); install(dataset_pkgs); install(other_pkgs); precompile()'
 
 # *********************Python Extras ***************************
 

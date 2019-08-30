@@ -2,17 +2,17 @@ const plotting_pkgs = [ "Gadfly",
                         "GR",
                         "Plots",
                         "VegaLite",
-                        "StatPlots",
+                        "StatsPlots",
                         "PlotlyJS",
                         "DataVoyager",
                         "Interact"]
 
-const external_pkgs = ["PyCall", "PyPlot", "RCall"]
+const external_pkgs = ["PyCall", "PyPlot", "RCall", "SymPy"]
 const dataset_pkgs = ["VegaDatasets", "RDatasets"]
                  
-const other_pkgs = [ "CSV",
-                     "DataFrames",
-                     "DataFramesMeta",
+const other_pkgs = ["CSV",
+                    "DataFrames",
+                    "DataFramesMeta",
                     "Distributions",
                     "ClassImbalance",
                     "Clustering",
@@ -32,7 +32,6 @@ const other_pkgs = [ "CSV",
                     "Images",
                     "TSne",
                     "ProgressMeter",
-                    "SymPy",
                     "TableView",
                     "Query",
                     "Weave",
