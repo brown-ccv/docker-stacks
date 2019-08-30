@@ -26,6 +26,17 @@ RUN chmod +x /usr/local/bin/ssh-keyreg
 COPY ./scripts/gitconfig /usr/local/bin/gitconfig
 RUN chmod +x /usr/local/bin/gitconfig
 
+# Install Noto Sans Mono and TeX Gyre Pagella fonts on the system
+RUN mkdir /home/jovyan/.fonts && cd /home/jovyan/.fonts && \
+    wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansMono-unhinted.zip && \
+    unzip NotoSansMono-unhinted.zip && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bold.otf && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bolditalic.otf && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-italic.otf && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-regular.otf && \
+    fc-cache -f -v && \
+    mktexlsr
+
 USER $NB_UID
 
 RUN pip install --upgrade pip

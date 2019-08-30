@@ -5,8 +5,8 @@
     \usepackage[breakable]{tcolorbox}
     \usepackage{fontspec}
     \usepackage{mathpazo}
-    \setmainfont{DejaVu Math TeX Gyre}
-    \setmonofont{Liberation Mono}
+    \setmainfont{TeX Gyre Pagella}
+    \setmonofont{Noto Sans Mono}
     \tcbset{nobeforeafter} % prevents tcolorboxes being placing in paragraphs
     \usepackage{float}
     \floatplacement{figure}{H} % forces figures to be placed at the correct location
