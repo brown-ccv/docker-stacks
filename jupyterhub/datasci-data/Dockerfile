@@ -1,7 +1,8 @@
 
 ARG NAMED_TAG=latest
-RUN bash -c 'echo tag $NAMED_TAG'
 FROM brownccv/jupyterhub-datasci:$NAMED_TAG
+ARG NAMED_TAG
+RUN echo "--------Pulling from brownccv/jupyterhub-datasci with tag: ${NAMED_TAG}---------"
 
 USER $NB_UID
 
