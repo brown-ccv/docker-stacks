@@ -1,4 +1,4 @@
-FROM brownccv/jupyterhub-datasci:{NAMED_TAG}
+FROM brownccv/jupyterhub-datasci:${NAMED_TAG}
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
