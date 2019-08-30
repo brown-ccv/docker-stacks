@@ -1,8 +1,7 @@
 
 ARG NAMED_TAG=latest
+RUN bash -c 'echo tag $NAMED_TAG'
 FROM brownccv/jupyterhub-datasci:$NAMED_TAG
-
-MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
 USER $NB_UID
 
