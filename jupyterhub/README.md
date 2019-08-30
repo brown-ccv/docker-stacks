@@ -37,7 +37,7 @@ Will build the `datasci` image first and then `datasci-dlgpu`
 While these images are created with our JupyterHub set up in mind, you can run them locally 
 
 ```
-docker run -it -p 8888:8888 brownccv/jupyterhub-datasci-notebook:a1dee96
+docker run -it -p 8888:8888 brownccv/jupyterhub-datasci-data:dev
 ```
 
 

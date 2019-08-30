@@ -18,10 +18,10 @@ COPY ./scripts/install_sys_deps.sh /tmp/install_sys_deps.sh
 RUN chmod +x /tmp/install_sys_deps.sh
 RUN /tmp/install_sys_deps.sh
 
-# Install missing fonts
-COPY ./scripts/install_fonts.sh /tmp/install_fonts.sh
-RUN chmod +x /tmp/install_fonts.sh
-RUN /tmp/install_fonts.sh
+# # Install missing fonts
+# COPY ./scripts/install_fonts.sh /tmp/install_fonts.sh
+# RUN chmod +x /tmp/install_fonts.sh
+# RUN /tmp/install_fonts.sh
 
 #Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
