@@ -13,7 +13,7 @@ RUN npm i npm@latest -g
 # Pytorch
 RUN conda install --quiet --yes \
     'pytorch-cpu=1.0.*' 'torchvision-cpu=0.2.*' -c pytorch && \
-    conda clean -tipsy && \
+    conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
@@ -22,6 +22,6 @@ RUN conda install --quiet --yes \
 RUN conda install --quiet --yes \
     'tensorflow=1.12.*'\
     'keras=2.2.*' && \
-    conda clean -tipsy && \
+    conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER

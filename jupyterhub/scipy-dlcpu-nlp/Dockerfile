@@ -17,7 +17,7 @@ RUN conda install --quiet --yes \
     'whoosh=2.7.4' \
     'nltk=3.3.*' \
     'spacy=2.0.18' &&\
-    conda clean -tipsy && \
+    conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 

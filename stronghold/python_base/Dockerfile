@@ -73,7 +73,7 @@ RUN cd /tmp && \
     conda config --system --set show_channel_urls true && \
     conda install --quiet --yes conda="${MINICONDA_VERSION%.*}.*" && \
     conda update --all --quiet --yes && \
-    conda clean -tipsy
+    conda clean --all -f -y
 #     # rm -rf /home/$NB_USER/.cache/yarn && \
 #     # fix-permissions $CONDA_DIR && \
 #     # fix-permissions /home/$NB_USER
@@ -81,7 +81,7 @@ RUN cd /tmp && \
 # Install Tini
 RUN conda install --quiet --yes 'tini=0.18.0' && \
     conda list tini | grep tini | tr -s ' ' | cut -d ' ' -f 1,2 >> $CONDA_DIR/conda-meta/pinned && \
-    conda clean -tipsy 
+    conda clean --all -f -y 
     # fix-permissions $CONDA_DIR && \
     # fix-permissions /home/$NB_USER
 
@@ -109,7 +109,7 @@ RUN conda install -c conda-forge --quiet --yes \
     cufflinks-py \
     plotly \
     rise && \
-    conda clean -tipsy
+    conda clean --all -f -y
 
 
 # ****************************** Julia ***************************

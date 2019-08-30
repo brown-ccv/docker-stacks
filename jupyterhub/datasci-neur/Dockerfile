@@ -11,7 +11,7 @@ RUN conda install -c conda-forge \
         pytables \
         python-igraph \
         louvain && \
-    conda clean -tipsy && \
+    conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
@@ -21,7 +21,7 @@ RUN pip install scanpy
 # R packages including IRKernel which gets installed globally.
 RUN conda install --quiet --yes \
     'r-seurat' && \
-    conda clean -tipsy && \
+    conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
