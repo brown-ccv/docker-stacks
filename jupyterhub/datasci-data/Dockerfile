@@ -33,8 +33,8 @@ RUN pip install jupyterlab-dash
 # *********************Extensions ***************************
 
 RUN jupyter labextension install jupyterlab-dash@0.1.0-alpha.3
-RUN jupyter nbextension install --py jupytext --sys-prefix
-
+RUN jupyter nbextension install jupytext --py --sys-prefix
+RUN jupyter nbextension enable jupytext --py --sys-prefix
 # *********************R Extras ***************************
 # R packages including IRKernel which gets installed globally.
 RUN conda install --quiet --yes \
