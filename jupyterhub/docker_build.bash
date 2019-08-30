@@ -65,7 +65,7 @@ do
 
 	IMAGE_NAME=jupyterhub-${IMAGE}
 	IMAGE_SPEC="${DOCKER_REPO}/${IMAGE_NAME}:${TAG}"
-	docker build -f ${IMAGE}/Dockerfile -t ${IMAGE_SPEC} .
+	docker build --build-arg NAMED_TAG=${NAMED_TAG} -f ${IMAGE}/Dockerfile -t ${IMAGE_SPEC} .
 	docker tag ${DOCKER_REPO}/${IMAGE_NAME}:${TAG} ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}
 
 	echo "Build ${IMAGE_SPEC} and ${DOCKER_REPO}/${IMAGE_NAME}:${NAMED_TAG}"
