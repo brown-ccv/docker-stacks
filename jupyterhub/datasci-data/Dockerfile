@@ -1,4 +1,6 @@
-FROM brownccv/jupyterhub-datasci:${NAMED_TAG}
+
+ARG NAMED_TAG=latest
+FROM brownccv/jupyterhub-datasci:$NAMED_TAG
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
