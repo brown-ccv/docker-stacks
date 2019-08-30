@@ -18,11 +18,6 @@ COPY ./scripts/install_sys_deps.sh /tmp/install_sys_deps.sh
 RUN chmod +x /tmp/install_sys_deps.sh
 RUN /tmp/install_sys_deps.sh
 
-# # Install missing fonts
-# COPY ./scripts/install_fonts.sh /tmp/install_fonts.sh
-# RUN chmod +x /tmp/install_fonts.sh
-# RUN /tmp/install_fonts.sh
-
 #Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
 RUN chmod +x /usr/local/bin/ssh-keyreg
@@ -35,9 +30,10 @@ USER $NB_UID
 
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
+RUN conda update jupyterlab
 
 
-# ********************* Julia ***************************
+# # ********************* Julia ***************************
 # This allows precompilation to be remembered?
 ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
 
@@ -45,27 +41,29 @@ ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
 
 # Install nbgitpuller extension
 RUN pip install nbgitpuller && \
-    jupyter serverextension enable --py nbgitpuller --sys-prefix 
+    jupyter serverextension enable --py nbgitpuller --sys-prefix && \
+    npm cache clean --force
 
 # Install RISE extension
 RUN pip install RISE && \
     jupyter nbextension install rise --py --sys-prefix &&\
-    jupyter nbextension enable rise --py --sys-prefix 
+    jupyter nbextension enable rise --py --sys-prefix &&\
+    npm cache clean --force
 
-RUN jupyter labextension install @jupyterlab/git && \
+RUN pip install --upgrade nbdime &&\
+    nbdime extensions --enable --sys-prefix &&\
+    jupyter labextension install @jupyterlab/git && \
     pip install --upgrade jupyterlab-git && \
-    jupyter serverextension enable --py jupyterlab_git --sys-prefix 
+    jupyter serverextension enable --py jupyterlab_git --sys-prefix && \
+    npm cache clean --force
 
 # Install JupyterLab extensions
-RUN jupyter labextension install \
-            @jupyterlab/vega2-extension \
-            @jupyterlab/vega3-extension \
-            @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib \
-            @jupyterlab/plotly-extension \
-            @jupyterlab/geojson-extension \
-            @jupyterlab/mathjax3-extension \
-            @jupyterlab/katex-extension
+# RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager 
+RUN jupyter labextension install jupyter-matplotlib 
+# RUN jupyter labextension install @jupyterlab/plotly-extension 
+RUN jupyter labextension install @jupyterlab/geojson-extension 
+# RUN jupyter labextension install @jupyterlab/mathjax3-extension 
+# RUN jupyter labextension install @jupyterlab/katex-extension
 
 #Install VS Code
 RUN pip install jupyter-server-proxy
@@ -125,5 +123,11 @@ RUN npm cache clean --force && \
     fix-permissions /home/$NB_USER
 
 # ************** Fix latex/pdf export for nbconvert see -  https://github.com/jupyter/nbconvert/issues/786 ********************
+
+# # Install missing fonts
+# COPY ./scripts/install_fonts.sh /tmp/install_fonts.sh
+# RUN chmod +x /tmp/install_fonts.sh
+# RUN /tmp/install_fonts.sh
+
 RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
 COPY ./misc_files/style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx

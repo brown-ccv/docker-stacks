@@ -25,7 +25,9 @@ RUN conda install -c conda-forge \
     feather-format
 
 #plotly and plotly-dash
-RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly 
+RUN conda install -c conda-forge dash dash-renderer dash-html-components dash-core-components plotly
+RUN jupyter labextension install plotlywidget
+RUN jupyter labextension install jupyterlab-plotly
 
 #sswatson voayger-launch
 RUN pip install git+https://github.com/sswatson/voyager-launch plotly_express
@@ -46,8 +48,16 @@ RUN conda install --quiet --yes \
     'r-leaflet' \
     'r-gridextra'
 
+# *********************Later Extensions ***************************
+
+RUN pip install jupyterlab_latex && \
+    jupyter serverextension enable --sys-prefix jupyterlab_latex && \
+    jupyter labextension install @jupyterlab/latex
+
+
 # Clean up and fix permissions
-RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
+RUN npm cache clean --force && \
+    rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
     rm -rf /home/$NB_USER/.node-gyp && \
     conda clean --all -f -y && \
