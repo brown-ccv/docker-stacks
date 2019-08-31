@@ -57,7 +57,7 @@ RUN pip install jupyterlab_latex && \
 
 # Install Noto Sans Mono and TeX Gyre Pagella fonts on the system
 USER root
-RUN cd cd /usr/local/share/fonts && \
+RUN cd /usr/local/share/fonts && \
     wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansMono-unhinted.zip && \
     unzip NotoSansMono-unhinted.zip && \
     wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bold.otf && \
