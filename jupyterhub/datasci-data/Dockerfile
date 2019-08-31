@@ -55,6 +55,25 @@ RUN pip install jupyterlab_latex && \
     jupyter labextension install @jupyterlab/latex
 
 
+# Install Noto Sans Mono and TeX Gyre Pagella fonts on the system
+USER root
+RUN cd cd /usr/local/share/fonts && \
+    wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansMono-unhinted.zip && \
+    unzip NotoSansMono-unhinted.zip && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bold.otf && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bolditalic.otf && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-italic.otf && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-regular.otf && \
+    fc-cache -f -v && \
+    mktexlsr
+
+USER $NB_UID
+
+# Overwrite default latex/jupyter template to include above fonts    
+RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
+COPY ./misc_files/data_style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
+
+
 # Clean up and fix permissions
 RUN npm cache clean --force && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
