@@ -5,6 +5,7 @@
     \usepackage[breakable]{tcolorbox}
     \usepackage{fontspec}
     \usepackage{mathpazo}
+    %\usepackage{noto-mono}
     \setmainfont{TeX Gyre Pagella}
     \setmonofont{Noto Sans Mono}
     \tcbset{nobeforeafter} % prevents tcolorboxes being placing in paragraphs
