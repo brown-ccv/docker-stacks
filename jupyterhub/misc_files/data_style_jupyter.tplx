@@ -12,6 +12,11 @@
     \usepackage{float}
     \floatplacement{figure}{H} % forces figures to be placed at the correct location
     ((( super() )))
+    \makeatletter % next four lines allow image resizing via pandoc syntax: ![](img.png){width=50%}
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+    \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+    \makeatother
+    \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 ((*- endblock packages -*))
 
 ((*- block definitions -*))
