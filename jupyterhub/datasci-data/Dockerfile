@@ -75,7 +75,7 @@ RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_ju
 COPY ./misc_files/data_style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
 
 RUN rm -rf /home/jovyan/.fonts/
-Clean up and fix permissions
+# Clean up and fix permissions
 RUN npm cache clean --force && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
