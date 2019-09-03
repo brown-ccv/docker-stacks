@@ -55,13 +55,6 @@ RUN pip install jupyterlab_latex && \
     jupyter labextension install @jupyterlab/latex
 
 
-# Install Noto Sans Mono and TeX Gyre Pagella fonts on the system
-# USER root
-# RUN cd /usr/local/share/fonts && \
-#     wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bold.otf && \
-#     wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bolditalic.otf && \
-#     wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-italic.otf && \
-#     wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-regular.otf 
 USER root
 RUN cd /usr/share/fonts && \
     wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bold.otf && \
@@ -71,23 +64,9 @@ RUN cd /usr/share/fonts && \
     wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansMono-unhinted.zip && \
     unzip NotoSansMono-unhinted.zip && \
     chmod +r -R /usr/share/fonts
-
-
-# RUN fc-cache -f -v 
-# RUN mktexlsr
-
-# RUN cd /usr/local/share/texmf && \
-#     wget http://mirrors.ctan.org/install/fonts/noto.tds.zip 
-
-# RUN cd /usr/local/share/texmf && unzip -o noto.tds.zip
-    
-# RUN cd /usr/share/fonts/truetype &&  mkdir noto && cd noto && \
-#     wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansMono-unhinted.zip && \
-#     unzip NotoSansMono-unhinted.zip 
     
 RUN fc-cache -fsv 
 RUN mktexlsr
-# RUN updmap-sys --force --enable Map=noto.map
 
 USER $NB_UID
 
@@ -95,12 +74,12 @@ USER $NB_UID
 RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
 COPY ./misc_files/data_style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
 
-# RUN rm -rf /home/jovyan/.fonts/
-# Clean up and fix permissions
-# RUN npm cache clean --force && \
-#     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
-#     rm -rf /home/$NB_USER/.cache/yarn && \
-#     rm -rf /home/$NB_USER/.node-gyp && \
-#     conda clean --all -f -y && \
-#     fix-permissions $CONDA_DIR && \
-#     fix-permissions /home/$NB_USER
+RUN rm -rf /home/jovyan/.fonts/
+Clean up and fix permissions
+RUN npm cache clean --force && \
+    rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
+    rm -rf /home/$NB_USER/.cache/yarn && \
+    rm -rf /home/$NB_USER/.node-gyp && \
+    conda clean --all -f -y && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
