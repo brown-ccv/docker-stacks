@@ -113,6 +113,29 @@ RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy@master
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
 ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
 
+# ************** Fix latex/pdf export for nbconvert see -  https://github.com/jupyter/nbconvert/issues/786 ********************
+
+# # Install missing fonts
+USER root
+RUN cd /usr/share/fonts && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bold.otf && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bolditalic.otf && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-italic.otf && \
+    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-regular.otf && \
+    wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansMono-unhinted.zip && \
+    unzip NotoSansMono-unhinted.zip && \
+    chmod +r -R /usr/share/fonts
+    
+RUN fc-cache -fsv 
+RUN mktexlsr
+
+USER $NB_UID
+
+# Overwrite default latex/jupyter template to include above fonts    
+RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
+COPY ./misc_files/data_style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
+
+RUN rm -rf /home/jovyan/.fonts/
 # Clean up and fix permissions
 RUN npm cache clean --force && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
@@ -121,13 +144,3 @@ RUN npm cache clean --force && \
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
-
-# ************** Fix latex/pdf export for nbconvert see -  https://github.com/jupyter/nbconvert/issues/786 ********************
-
-# # Install missing fonts
-# COPY ./scripts/install_fonts.sh /tmp/install_fonts.sh
-# RUN chmod +x /tmp/install_fonts.sh
-# RUN /tmp/install_fonts.sh
-
-RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
-COPY ./misc_files/style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
