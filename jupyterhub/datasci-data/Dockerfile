@@ -6,7 +6,6 @@ RUN echo "--------Pulling from brownccv/jupyterhub-datasci with tag: ${NAMED_TAG
 
 USER $NB_UID
 
-
 # *********************Python Extras ***************************
 #altair https://altair-viz.github.io
 RUN conda install -c conda-forge \
