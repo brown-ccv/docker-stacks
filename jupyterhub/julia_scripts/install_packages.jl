@@ -26,7 +26,7 @@ function precompile(pkgs)
             pkgsym = Symbol(pkg)
             eval(:(using $pkgsym))
         catch
-            warn("using pkg failed")
+            @warn("using pkg failed")
             push!(failed_pkgs, pkg)
         end
     end
