@@ -22,6 +22,9 @@ function precompile(pkgs)
     failed_pkgs = Vector{String}()
 
     for pkg in pkgs
+        println("--------------------------------")
+        println("Precompiling: ", pkg) 
+        println("--------------------------------")
         try
             pkgsym = Symbol(pkg)
             eval(:(using $pkgsym))
