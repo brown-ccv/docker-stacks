@@ -78,6 +78,13 @@ RUN cd /tmp/ && \
 #Install VSCode Proxy
 RUN pip install git+https://github.com/betatim/vscode-binder
 
+RUN conda clean --all -f -y && \
+    npm cache clean --force && \
+    rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
+    rm -rf /home/$NB_USER/.cache/yarn && \
+    rm -rf /home/$NB_USER/.node-gyp && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
 
 # Download and install VS Code server
 USER root
@@ -105,17 +112,17 @@ RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-${SHINY_
   && gdebi -n shiny-server-${SHINY_VERSION}-amd64.deb \
   && rm shiny-server-*-amd64.deb
 
-USER $NB_USER
+USER $NB_UID
 
 RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy@master
-
 # The desktop package uses /usr/lib/rstudio/bin
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
 ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
 
 # ************** Fix latex/pdf export for nbconvert see -  https://github.com/jupyter/nbconvert/issues/786 ********************
 
-# # Install missing fonts
+
+# Install missing fonts
 USER root
 RUN cd /usr/share/fonts && \
     wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bold.otf && \
@@ -129,18 +136,7 @@ RUN cd /usr/share/fonts && \
 RUN fc-cache -fsv 
 RUN mktexlsr
 
-USER $NB_UID
 
 # Overwrite default latex/jupyter template to include above fonts    
 RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
 COPY ./misc_files/data_style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
-
-RUN rm -rf /home/jovyan/.fonts/
-# Clean up and fix permissions
-RUN npm cache clean --force && \
-    rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
-    rm -rf /home/$NB_USER/.cache/yarn && \
-    rm -rf /home/$NB_USER/.node-gyp && \
-    conda clean --all -f -y && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
