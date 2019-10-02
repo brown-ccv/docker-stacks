@@ -139,4 +139,4 @@ RUN mktexlsr
 
 # Overwrite default latex/jupyter template to include above fonts    
 RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
-COPY ./misc_files/data_style_jupyter.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
+COPY ./misc_files/data_style_jupyter2.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
