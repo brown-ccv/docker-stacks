@@ -64,3 +64,10 @@ COPY ./julia_scripts/julia_pkgs.jl /tmp
 RUN julia -e 'using Pkg; popfirst!(DEPOT_PATH); include(expanduser("/tmp/install_packages.jl")); include(expanduser("/tmp/julia_pkgs.jl")); install(plotting_pkgs); install(external_pkgs); install(dataset_pkgs); install(other_pkgs)'
 
 RUN julia -e 'popfirst!(DEPOT_PATH); include(expanduser("/tmp/install_packages.jl")); precompile();'
+
+# Overwrite default latex/jupyter template to include above fonts
+USER root
+RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
+COPY ./misc_files/data_style_jupyter2.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
+
+USER $NB_UID
