@@ -70,4 +70,6 @@ USER root
 RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
 COPY ./misc_files/data_style_jupyter2.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
 
+RUN apt-get install -y --no-install-recommends dvipng
+
 USER $NB_UID
