@@ -7,7 +7,7 @@ apt-get update && apt-get -yq dist-upgrade \
 openssh-client \
 vim \
 curl \
-git-lfs\
+git-lfs \
 npm \
 nodejs \
 && apt-get clean
