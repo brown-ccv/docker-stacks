@@ -10,7 +10,7 @@ RUN /tmp/install_sys_deps.sh
 ####### Install Node.js 12.4 #########
 
 # nvm environment variables
-RUN mkdir ~/.nvm
+RUN mkdir .nvm
 ENV NVM_DIR ~/.nvm
 ENV NODE_VERSION 12.4.0
 
