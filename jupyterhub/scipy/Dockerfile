@@ -17,6 +17,7 @@ ENV NODE_VERSION 12.4.0
 RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 RUN [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 RUN [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+RUN chmod -R 775 $NVM_DIR
 
 # install node and npm
 RUN $NVM_DIR/nvm.sh install $NODE_VERSION
