@@ -9,5 +9,5 @@ vim \
 curl \
 git-lfs\
 npm \
-nodejs
+nodejs \
 && apt-get clean
