@@ -8,5 +8,4 @@ openssh-client \
 vim \
 curl \
 git-lfs \
-nodejs \
 && apt-get clean
