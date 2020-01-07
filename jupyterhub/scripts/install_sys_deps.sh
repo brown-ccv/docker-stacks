@@ -16,8 +16,4 @@ git-lfs \
 && apt-get clean \
 && curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
 && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash \
-&& export NVM_DIR="$HOME/.nvm" \
-&& \. "$NVM_DIR/nvm.sh"  \ # This loads nvm
-&& \. "$NVM_DIR/bash_completion" \ # This loads nvm bash_completion
-&& nvm install 12.14.0 \
-&& nvm use 12
+&& export NVM_DIR="$HOME/.nvm" 
