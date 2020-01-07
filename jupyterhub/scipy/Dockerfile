@@ -98,7 +98,7 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
 # Download and install VS Code server
 USER root
 RUN wget https://github.com/cdr/code-server/releases/download/2.1692-vsc1.39.2/code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
-RUN tar xzf code-server2.1692-vsc1.39.2-linux-x64.tar.gz
-RUN mv code-server2.1692-vsc1.39.2-linux-x64/code-server /usr/local/bin/
-RUN rm code-server2.1692-vsc1.39.2-linux-x64.tar.gz
-RUN rm -rf code-server2.1692-vsc1.39.2-linux-x64
+RUN tar xzf code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
+RUN mv code-server2.1692-vsc1.39.2-linux-x86_64/code-server /usr/local/bin/
+RUN rm code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
+RUN rm -rf code-server2.1692-vsc1.39.2-linux-x86_64
