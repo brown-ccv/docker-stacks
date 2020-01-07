@@ -8,6 +8,7 @@ RUN chmod +x /tmp/install_sys_deps.sh
 RUN /tmp/install_sys_deps.sh
 
 # nvm environment variables
+RUN mkdir /usr/local/nvm
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 12.4.1
 
