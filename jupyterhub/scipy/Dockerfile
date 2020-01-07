@@ -8,10 +8,11 @@ RUN chmod +x /tmp/install_sys_deps.sh
 RUN /tmp/install_sys_deps.sh
 
 ####### Install Node.js 12.4 #########
+USER $NB_UID
 
 # nvm environment variables
-RUN mkdir /usr/local/nvm
-ENV NVM_DIR /usr/local/nvm
+RUN mkdir /home/jovyan/.nvm
+ENV NVM_DIR /home/jovyan/.nvm
 ENV NODE_VERSION 12.4.0
 
 # https://github.com/creationix/nvm#install-script
@@ -28,7 +29,6 @@ RUN $NVM_DIR/nvm.sh use default
 # add node and npm to path so the commands are available
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-RUN chmod -R 755 $NVM_DIR/v$NODE_VERSION/lib/node_modules
 
 ####### END Installing Node.js 12.4 #########
 
