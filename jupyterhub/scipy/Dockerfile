@@ -72,9 +72,7 @@ RUN jupyter labextension install @jupyterlab/git && \
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build
 RUN jupyter labextension install jupyter-matplotlib --no-build
 RUN jupyter labextension install jupyterlab-plotly --no-build
-RUN jupyter labextension install @jupyterlab/geojson-extension --no-build
-RUN jupyter labextension install @jupyterlab/mathjax3-extension --no-build
-RUN jupyter labextension install @jupyterlab/katex-extension --no-build
+
 RUN jupyter lab build
 
 #Install VS Code
