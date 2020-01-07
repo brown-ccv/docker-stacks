@@ -15,4 +15,4 @@ curl \
 git-lfs \
 && apt-get clean \
 && curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
-&& apt -yq install nodejs npm
+&& apt -yq install nodejs
