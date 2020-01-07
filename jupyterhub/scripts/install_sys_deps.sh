@@ -16,4 +16,5 @@ git-lfs \
 && apt-get clean \
 && curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
 && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash \
-&& export NVM_DIR="$HOME/.nvm" 
+&& export NVM_DIR="$HOME/.nvm" \
+&& chmod -R 755 $NVM_DIR
