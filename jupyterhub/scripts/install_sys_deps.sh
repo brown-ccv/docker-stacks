@@ -15,7 +15,13 @@ curl \
 git-lfs \
 && apt-get clean \
 && curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
-&& apt -yq install nodejs \
-&& curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash \
-&& nvm install 12.14.0 \
-&& nvm use 12
+&& apt-get purge nodejs \
+&& apt-get install -y nodejs
+# && apt -yq install nodejs \
+# && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash \
+#
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+# && nvm install 12.14.0 \
+# && nvm use 12
