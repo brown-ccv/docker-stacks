@@ -69,8 +69,6 @@ RUN jupyter labextension install @jupyterlab/git && \
     npm cache clean --force
 
 # Install JupyterLab extensions
-RUN jupyter labextension install @jupyterlab/vega2-extension
-RUN jupyter labextension install @jupyterlab/vega3-extension
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 RUN jupyter labextension install jupyter-matplotlib
 RUN jupyter labextension install @jupyterlab/plotly-extension
