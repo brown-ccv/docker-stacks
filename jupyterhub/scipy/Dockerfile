@@ -31,6 +31,7 @@ ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 ####### END Installing Node.js 12.4 #########
+
 USER root
 #Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
@@ -68,15 +69,14 @@ RUN jupyter labextension install @jupyterlab/git && \
     npm cache clean --force
 
 # Install JupyterLab extensions
-RUN jupyter labextension install \
-            @jupyterlab/vega2-extension \
-            @jupyterlab/vega3-extension \
-            @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib \
-            @jupyterlab/plotly-extension \
-            @jupyterlab/geojson-extension \
-            @jupyterlab/mathjax3-extension \
-            @jupyterlab/katex-extension
+RUN jupyter labextension install @jupyterlab/vega2-extension
+RUN jupyter labextension install @jupyterlab/vega3-extension
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
+RUN jupyter labextension install jupyter-matplotlib
+RUN jupyter labextension install @jupyterlab/plotly-extension
+RUN jupyter labextension install @jupyterlab/geojson-extension
+RUN jupyter labextension install @jupyterlab/mathjax3-extension
+RUN jupyter labextension install @jupyterlab/katex-extension
 
 #Install VS Code
 RUN pip install jupyter-server-proxy
