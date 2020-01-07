@@ -8,6 +8,7 @@ RUN chmod +x /tmp/install_sys_deps.sh
 RUN /tmp/install_sys_deps.sh
 
 ####### Install Node.js 12.4 #########
+USER $NB_UID
 
 # nvm environment variables
 RUN mkdir .nvm
@@ -38,8 +39,6 @@ RUN chmod +x /usr/local/bin/ssh-keyreg
 # Add gitconfig script
 COPY ./scripts/gitconfig /usr/local/bin/gitconfig
 RUN chmod +x /usr/local/bin/gitconfig
-
-USER $NB_UID
 
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
