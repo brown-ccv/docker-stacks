@@ -18,8 +18,6 @@ RUN chmod +x /usr/local/bin/gitconfig
 USER $NB_UID
 
 RUN pip install --upgrade pip
-RUN npm i npm@12 -g
-
 
 # Install Git extension
 RUN jupyter labextension install @jupyterlab/git && \
