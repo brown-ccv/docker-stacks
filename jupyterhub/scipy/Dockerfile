@@ -69,9 +69,8 @@ RUN jupyter labextension install @jupyterlab/git && \
     npm cache clean --force
 
 # Install JupyterLab extensions
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager 
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 RUN jupyter labextension install jupyter-matplotlib
-RUN jupyter labextension install jupyterlab-plotly
 RUN jupyter labextension install @jupyterlab/geojson-extension
 RUN jupyter labextension install @jupyterlab/mathjax3-extension
 RUN jupyter labextension install @jupyterlab/katex-extension
