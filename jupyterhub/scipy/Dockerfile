@@ -10,8 +10,8 @@ RUN /tmp/install_sys_deps.sh
 ####### Install Node.js 12.4 #########
 
 # nvm environment variables
-RUN mkdir /home/jovyan/.nvm
-ENV NVM_DIR /home/jovyan/.nvm
+RUN mkdir /usr/local/nvm
+ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 12.4.0
 
 # https://github.com/creationix/nvm#install-script
@@ -28,8 +28,9 @@ RUN $NVM_DIR/nvm.sh use default
 # add node and npm to path so the commands are available
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+RUN chmod -R 755 $NVM_DIR/v$NODE_VERSION/lib/node_modules
 
-####### End Install Node.js 12.4 #########
+####### END Installing Node.js 12.4 #########
 
 #Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
@@ -43,6 +44,7 @@ USER $NB_UID
 
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
+
 
 # Install Git extension
 RUN jupyter labextension install @jupyterlab/git && \
