@@ -15,4 +15,5 @@ curl \
 git-lfs \
 && apt-get clean \
 && curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
-&& apt -yq install nodejs
+&& apt -yq install nodejs \
+&& curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
