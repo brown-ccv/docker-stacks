@@ -15,10 +15,10 @@ RUN npm i npm@latest -g
 # NLTK
 # imbalanced-learn
 RUN conda install --quiet --yes \
-    'tensorflow=1.12.*'\
-    'keras=2.2.*' \
-    'imbalanced-learn=0.5.*' \
-    'nltk=3.3.*' && \
+    'tensorflow=2.0.*'\
+    'keras=2.3.*' \
+    'imbalanced-learn=0.6.*' \
+    'nltk=3.4.*' && \
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
