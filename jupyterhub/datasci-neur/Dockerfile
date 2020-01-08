@@ -1,4 +1,4 @@
-FROM brownccv/jupyterhub-datasci:fall-19
+FROM gcr.io/jupyterhub-docker-images/jupyterhub-datasci:cad160f
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 
