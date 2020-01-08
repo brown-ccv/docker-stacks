@@ -88,7 +88,7 @@ RUN pip install --upgrade nbdime &&\
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 RUN jupyter labextension install jupyter-matplotlib
 RUN jupyter labextension install @jupyterlab/geojson-extension
-RUN jupyter labextension install @jupyterlab/mathjax3-extension
+# RUN jupyter labextension install @jupyterlab/mathjax3-extension
 RUN jupyter labextension install @jupyterlab/katex-extension
 
 # ************** VSCode ********************
