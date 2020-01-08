@@ -43,6 +43,8 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 ####### *********** END Installing Node.js 12.4 *************** #########
 
+USER root
+
 #Install ssh-keyreg
 RUN curl https://raw.githubusercontent.com/b4b4r07/ssh-keyreg/master/bin/ssh-keyreg -o /usr/local/bin/ssh-keyreg
 RUN chmod +x /usr/local/bin/ssh-keyreg
