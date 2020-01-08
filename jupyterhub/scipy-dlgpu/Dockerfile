@@ -20,6 +20,7 @@ RUN conda install --quiet --yes \
 # Tensorflow
 # Keras
 RUN conda install --quiet --yes \
+    'scikit-learn=0.22.*' \
     'tensorflow-gpu=1.12.*'\
     'keras-gpu=2.2.*' && \
     conda clean --all -f -y && \
