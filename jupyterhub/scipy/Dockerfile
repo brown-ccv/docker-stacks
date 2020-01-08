@@ -7,7 +7,7 @@ COPY ./scripts/install_sys_deps.sh /tmp/install_sys_deps.sh
 RUN chmod +x /tmp/install_sys_deps.sh
 RUN /tmp/install_sys_deps.sh
 
-####### Install Node.js 12.4 #########
+####### ************ Install Node.js 12.4 ************ #########
 USER $NB_UID
 
 # nvm environment variables
@@ -30,7 +30,7 @@ RUN $NVM_DIR/nvm.sh use default
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-####### END Installing Node.js 12.4 #########
+####### *********** END Installing Node.js 12.4 *************** #########
 
 USER root
 #Install ssh-keyreg
@@ -78,7 +78,6 @@ RUN jupyter labextension install @jupyterlab/katex-extension
 #Install VS Code
 RUN pip install jupyter-server-proxy
 RUN jupyter serverextension enable --sys-prefix --py jupyter_server_proxy
-# RUN  jupyter labextension install jupyterlab-server-proxy && \
 RUN cd /tmp/ && \
     git clone --depth 1 https://github.com/jupyterhub/jupyter-server-proxy && \
     cd jupyter-server-proxy/jupyterlab-server-proxy && \
