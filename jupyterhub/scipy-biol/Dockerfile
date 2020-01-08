@@ -15,6 +15,7 @@ RUN npm i npm@latest -g
 # NLTK
 # imbalanced-learn
 RUN conda install --quiet --yes \
+    'scikit-learn=0.22.*' \
     'tensorflow=2.0.*'\
     'keras=2.3.*' \
     'imbalanced-learn=0.6.*' \
