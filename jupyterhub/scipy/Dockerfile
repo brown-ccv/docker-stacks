@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook:latest
+FROM jupyter/scipy-notebook:7a0c7325e470
 
 USER root
 
@@ -45,12 +45,7 @@ USER $NB_UID
 
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
-
-
-# Install Git extension
-RUN jupyter labextension install @jupyterlab/git && \
-    pip install --upgrade jupyterlab-git && \
-    jupyter serverextension enable --py jupyterlab_git
+RUN conda update --all
 
 # Install nbgitpuller extension
 RUN pip install nbgitpuller && \
@@ -71,9 +66,6 @@ RUN jupyter labextension install @jupyterlab/git && \
 # Install JupyterLab extensions
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 RUN jupyter labextension install jupyter-matplotlib
-RUN jupyter labextension install @jupyterlab/geojson-extension
-RUN jupyter labextension install @jupyterlab/mathjax3-extension
-RUN jupyter labextension install @jupyterlab/katex-extension
 
 #Install VS Code
 RUN pip install jupyter-server-proxy
