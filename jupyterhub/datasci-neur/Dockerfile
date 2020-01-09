@@ -41,7 +41,7 @@ RUN conda install --quiet --yes \
     fix-permissions /home/$NB_USER
 
 # *********************Python Extras ***************************
-RUN conda install -c conda-forge \
+RUN conda install --quiet --yes \
     'bokeh' \
     'bqplot' \
     'qgrid' \
