@@ -45,7 +45,6 @@ USER $NB_UID
 
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
-RUN conda update --all
 
 # Install nbgitpuller extension
 RUN pip install nbgitpuller && \
