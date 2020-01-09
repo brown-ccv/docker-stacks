@@ -44,7 +44,9 @@ RUN conda install --quiet --yes \
 RUN conda install --quiet --yes \
     'bokeh' \
     'bqplot' \
-    'qgrid' \
+    'qgrid'
+
+RUN conda install -c pyviz --quiet --yes \
     'pyviz' \
     'holoviews'
 
