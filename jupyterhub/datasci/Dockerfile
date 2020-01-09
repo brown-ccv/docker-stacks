@@ -64,6 +64,30 @@ RUN conda update jupyterlab
 # This allows precompilation to be remembered?
 ENV JULIA_DEPOT_PATH="$HOME/.julia:$JULIA_DEPOT_PATH"
 
+# *********************Python Extras ***************************
+#altair https://altair-viz.github.io
+RUN conda install -c conda-forge \
+    'altair' \
+    'vega_datasets' \
+    'xgboost' \
+    'lime' \
+    'jupytext' \
+    'feather-format' \
+    'plotnine'
+
+# *********************R Extras ***************************
+# R packages including IRKernel which gets installed globally.
+RUN conda install --quiet --yes \
+    'r-ggrepel' \
+    'r-maps' \
+    'r-feather' \
+    'r-esquisse' \
+    'r-knitr' \
+    'r-leaflet' \
+    'r-gridextra' \
+    'r-mlr'
+
+
 # *********************Extensions ***************************
 
 # Install nbgitpuller extension
@@ -87,9 +111,6 @@ RUN pip install --upgrade nbdime &&\
 # Install JupyterLab extensions
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 RUN jupyter labextension install jupyter-matplotlib
-RUN jupyter labextension install @jupyterlab/geojson-extension
-# RUN jupyter labextension install @jupyterlab/mathjax3-extension
-RUN jupyter labextension install @jupyterlab/katex-extension
 
 # ************** VSCode ********************
 #Install VS Code
@@ -137,25 +158,3 @@ RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy@master
 # The desktop package uses /usr/lib/rstudio/bin
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
 ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
-
-# ************** Fix latex/pdf export for nbconvert see -  https://github.com/jupyter/nbconvert/issues/786 ********************
-
-
-# Install missing fonts
-USER root
-RUN cd /usr/share/fonts && \
-    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bold.otf && \
-    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-bolditalic.otf && \
-    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-italic.otf && \
-    wget http://mirrors.ctan.org/fonts/tex-gyre/opentype/texgyrepagella-regular.otf && \
-    wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansMono-unhinted.zip && \
-    unzip NotoSansMono-unhinted.zip && \
-    chmod +r -R /usr/share/fonts
-
-RUN fc-cache -fsv
-RUN mktexlsr
-
-
-# Overwrite default latex/jupyter template to include above fonts
-RUN rm /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
-COPY ./misc_files/data_style_jupyter2.tplx /opt/conda/lib/python3.7/site-packages/nbconvert/templates/latex/style_jupyter.tplx
