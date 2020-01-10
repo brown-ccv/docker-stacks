@@ -41,6 +41,13 @@ RUN chmod +x /usr/local/bin/ssh-keyreg
 COPY ./scripts/gitconfig /usr/local/bin/gitconfig
 RUN chmod +x /usr/local/bin/gitconfig
 
+# Download and install VS Code server
+RUN wget https://github.com/cdr/code-server/releases/download/2.1692-vsc1.39.2/code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
+RUN tar xzf code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
+RUN mv code-server2.1692-vsc1.39.2-linux-x86_64/code-server /usr/local/bin/
+RUN rm code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
+RUN rm -rf code-server2.1692-vsc1.39.2-linux-x86_64
+
 USER $NB_UID
 
 RUN pip install --upgrade pip
@@ -68,7 +75,7 @@ RUN jupyter labextension install jupyter-matplotlib
 
 #Install VS Code
 RUN pip install jupyter-server-proxy
-# RUN jupyter serverextension enable --sys-prefix --py jupyter_server_proxy
+RUN jupyter serverextension enable --sys-prefix --py jupyter_server_proxy
 RUN cd /tmp/ && \
     git clone --depth 1 https://github.com/jupyterhub/jupyter-server-proxy && \
     cd jupyter-server-proxy/jupyterlab-server-proxy && \
@@ -84,11 +91,3 @@ RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.node-gyp && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
-
-# Download and install VS Code server
-USER root
-RUN wget https://github.com/cdr/code-server/releases/download/2.1692-vsc1.39.2/code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
-RUN tar xzf code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
-RUN mv code-server2.1692-vsc1.39.2-linux-x86_64/code-server /usr/local/bin/
-RUN rm code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
-RUN rm -rf code-server2.1692-vsc1.39.2-linux-x86_64
