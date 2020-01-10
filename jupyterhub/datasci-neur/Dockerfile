@@ -41,21 +41,22 @@ RUN conda install --quiet --yes \
     fix-permissions /home/$NB_USER
 
 # *********************Python Extras ***************************
-RUN conda install --quiet --yes \
-    'bokeh' \
-    'bqplot' \
-    'qgrid' \
-    'libprotobuf=3.10.0' && \
-    conda clean --all -f -y && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
-
 RUN conda install -c pyviz --quiet --yes \
     'pyviz' \
     'holoviews' && \
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
+
+RUN conda install --quiet --yes \
+    'bokeh' \
+    'bqplot' \
+    'qgrid' && \
+    conda clean --all -f -y && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+
 
 RUN jupyter labextension install bqplot
 RUN jupyter labextension install qgrid
