@@ -41,8 +41,6 @@ RUN conda install --quiet --yes \
     fix-permissions /home/$NB_USER
 
 # *********************Python Extras ***************************
-
-
 RUN conda install --quiet --yes \
     'bokeh' \
     'bqplot' \
@@ -51,9 +49,12 @@ RUN conda install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
+RUN pip install 'pyviz' \
+    'holoviews[recommended]'
 
 RUN jupyter labextension install bqplot
 RUN jupyter labextension install qgrid
+RUN jupyter labextension install @pyviz/jupyterlab_pyviz
 
 # Clean up and fix permissions
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
