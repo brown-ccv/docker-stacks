@@ -116,11 +116,11 @@ RUN jupyter labextension install jupyter-matplotlib
 #Install VS Code
 RUN pip install jupyter-server-proxy
 # RUN jupyter serverextension enable --sys-prefix --py jupyter_server_proxy
-RUN cd /opt/conda/share/jupyter/lab/ && \
-    git clone --depth 1 https://github.com/jupyterhub/jupyter-server-proxy && \
-    cd jupyter-server-proxy/jupyterlab-server-proxy && \
-    npm install && npm run build && jupyter labextension link . && \
-    npm run build && jupyter lab build
+# RUN cd /opt/conda/share/jupyter/lab/ && \
+#     git clone --depth 1 https://github.com/jupyterhub/jupyter-server-proxy && \
+#     cd jupyter-server-proxy/jupyterlab-server-proxy && \
+#     npm install && npm run build && jupyter labextension link . && \
+#     npm run build && jupyter lab build
 
 #Install VSCode Proxy
 RUN pip install git+https://github.com/betatim/vscode-binder
