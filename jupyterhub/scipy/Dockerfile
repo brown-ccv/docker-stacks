@@ -48,7 +48,6 @@ RUN mv code-server2.1692-vsc1.39.2-linux-x86_64/code-server /usr/local/bin/
 RUN rm code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
 RUN rm -rf code-server2.1692-vsc1.39.2-linux-x86_64
 
-USER $NB_UID
 
 RUN pip install --upgrade pip
 RUN npm i npm@latest -g
@@ -73,14 +72,9 @@ RUN jupyter labextension install @jupyterlab/git && \
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 RUN jupyter labextension install jupyter-matplotlib
 
-#Install VS Code
+#Install Server Proxy
 RUN pip install jupyter-server-proxy
-RUN jupyter serverextension enable --sys-prefix --py jupyter_server_proxy
-RUN cd /tmp/ && \
-    git clone --depth 1 https://github.com/jupyterhub/jupyter-server-proxy && \
-    cd jupyter-server-proxy/jupyterlab-server-proxy && \
-    npm install && npm run build && jupyter labextension link . && \
-    npm run build && jupyter lab build
+RUN jupyter labextension install @jupyterlab/server-proxy
 
 #Install VSCode Proxy
 RUN pip install git+https://github.com/betatim/vscode-binder
