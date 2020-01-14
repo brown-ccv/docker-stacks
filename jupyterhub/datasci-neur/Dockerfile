@@ -1,4 +1,4 @@
-FROM gcr.io/jupyterhub-docker-images/jupyterhub-datasci:2f30dd0
+FROM gcr.io/jupyterhub-docker-images/jupyterhub-datasci:spring2020
 
 MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 

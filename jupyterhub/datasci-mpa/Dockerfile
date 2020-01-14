@@ -1,4 +1,4 @@
-FROM gcr.io/jupyterhub-docker-images/jupyterhub-datasci:cad160f
+FROM gcr.io/jupyterhub-docker-images/jupyterhub-datasci:spring2020
 
 USER $NB_UID
 
