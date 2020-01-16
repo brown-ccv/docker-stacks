@@ -11,4 +11,4 @@ RUN conda install --quiet --yes -c conda-forge\
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-RUN jupyter labextension install jupyter-matplotlib
+USER $NB_UID
