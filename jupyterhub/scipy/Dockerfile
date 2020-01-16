@@ -70,7 +70,6 @@ RUN jupyter labextension install @jupyterlab/git && \
 
 # Install JupyterLab extensions
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
-RUN jupyter labextension install jupyter-matplotlib
 
 #Install Server Proxy
 RUN pip install jupyter-server-proxy
