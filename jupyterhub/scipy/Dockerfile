@@ -74,6 +74,7 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 #Install Server Proxy
 RUN pip install jupyter-server-proxy
 RUN jupyter labextension install @jupyterlab/server-proxy
+RUN jupyter labextension install jupyter-matplotlib
 
 #Install VSCode Proxy
 RUN pip install git+https://github.com/betatim/vscode-binder
