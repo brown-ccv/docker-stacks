@@ -69,7 +69,7 @@ RUN pip install 'pyviz' \
 RUN jupyter labextension install bqplot
 RUN jupyter labextension install qgrid
 RUN jupyter labextension install @pyviz/jupyterlab_pyviz
-jupyter labextension install ipycanvas
+RUN jupyter labextension install ipycanvas
 
 # Clean up and fix permissions
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
