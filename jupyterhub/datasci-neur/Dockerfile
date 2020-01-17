@@ -42,9 +42,23 @@ RUN conda install --quiet --yes \
 
 # *********************Python Extras ***************************
 RUN conda install --quiet --yes \
+    'branca' \
     'bokeh' \
     'bqplot' \
     'qgrid' && \
+    conda clean --all -f -y && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+RUN conda install --quiet --yes \
+    'pyx' -c bioconda && \
+    conda clean --all -f -y && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+RUN conda install --quiet --yes \
+    'ipyevents' \
+    'ipycanvas' -c conda-forge && \
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
@@ -55,6 +69,7 @@ RUN pip install 'pyviz' \
 RUN jupyter labextension install bqplot
 RUN jupyter labextension install qgrid
 RUN jupyter labextension install @pyviz/jupyterlab_pyviz
+jupyter labextension install ipycanvas
 
 # Clean up and fix permissions
 RUN rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
