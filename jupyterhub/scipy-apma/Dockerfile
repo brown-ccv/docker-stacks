@@ -14,11 +14,12 @@ RUN conda install --quiet --yes -c conda-forge\
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-RUN jupyter labextension uninstall jupyter-matplotlib@0.5.0
-RUN jupyter labextension uninstall jupyter-matplotlib@0.4.0
-
+RUN rm /opt/conda/share/jupyter/lab/extensions/jupyter-matplotlib-0.5.0.tgz
+RUN rm /opt/conda/share/jupyter/lab/extensions/jupyter-matplotlib-0.4.0.tgz
 RUN ls /opt/conda/share/jupyter/lab/extensions/
-RUN jupyter labextension list
 
 RUN jupyter lab build
+
+RUN jupyter labextension list
+
 USER $NB_UID
