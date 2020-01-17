@@ -8,7 +8,7 @@ MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 RUN ls /opt/conda/share/jupyter/lab/extensions/
 RUN jupyter labextension uninstall jupyter-matplotlib
 
-RUN jupyter labextension install jupyter-matplotlib@0.5.0
+RUN jupyter labextension install jupyter-matplotlib@0.4.1
 RUN ls /opt/conda/share/jupyter/lab/extensions/
 
 RUN jupyter lab build
