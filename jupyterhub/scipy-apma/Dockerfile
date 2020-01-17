@@ -6,6 +6,7 @@ MAINTAINER Jupyter Help <jupyter-help@brown.edu>
 # ********************* Additional Packages for APMA0350 ***************************
 # uninstall Matplotlib extenstions
 RUN ls /opt/conda/share/jupyter/lab/extensions/
+RUN jupyter labextension list
 # ipympl
 RUN conda install --quiet --yes -c conda-forge\
     ipympl && \
@@ -17,6 +18,7 @@ RUN jupyter labextension uninstall jupyter-matplotlib@0.5.0
 RUN jupyter labextension uninstall jupyter-matplotlib@0.4.0
 
 RUN ls /opt/conda/share/jupyter/lab/extensions/
+RUN jupyter labextension list
 
 RUN jupyter lab build
 USER $NB_UID
