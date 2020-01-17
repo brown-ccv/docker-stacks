@@ -15,7 +15,7 @@ RUN conda install --quiet --yes -c conda-forge\
     fix-permissions /home/$NB_USER
 
 RUN rm /opt/conda/share/jupyter/lab/extensions/jupyter-matplotlib-0.5.0.tgz
-RUN rm /opt/conda/share/jupyter/lab/extensions/jupyter-matplotlib-0.4.0.tgz
+RUN rm /opt/conda/share/jupyter/lab/extensions/jupyter-matplotlib-0.4.1.tgz
 RUN ls /opt/conda/share/jupyter/lab/extensions/
 
 RUN jupyter lab build
