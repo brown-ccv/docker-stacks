@@ -57,6 +57,7 @@ RUN conda install --quiet --yes \
     fix-permissions /home/$NB_USER
 
 RUN conda install --quiet --yes \
+    'ghostscript' \
     'ipyevents' \
     'ipycanvas' -c conda-forge && \
     conda clean --all -f -y && \
