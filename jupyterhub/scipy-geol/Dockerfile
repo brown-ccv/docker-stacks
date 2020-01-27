@@ -1,5 +1,4 @@
-
-FROM brownccv/jupyterhub-scipy:latest
+FROM brownccv/gcr.io/jupyterhub-docker-images/jupyterhub-scipy:06b2054
 
 USER root
 
@@ -9,9 +8,12 @@ RUN pip install --upgrade pip
 RUN npm i npm@latest -g
 
 # *********************Python Geology libraries ***************************
-RUN conda install --quiet --yes -c conda-forge\
-    netcdf4 metpy cartopy iris && \
+# netcdf4
+# metpy
+# cartopy
+# iris
+# imbalanced-learnRUN conda install --quiet --yes -c conda-forge\
+    'netcdf4' 'metpy' 'cartopy' 'iris' && \
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
-    
