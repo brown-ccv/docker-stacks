@@ -1,4 +1,4 @@
-FROM gcr.io/jupyterhub-docker-images/jupyterhub-scipy:06b2054
+FROM gcr.io/jupyterhub-docker-images/jupyterhub-scipy:geol1510-spring2020 
 
 USER root
 
