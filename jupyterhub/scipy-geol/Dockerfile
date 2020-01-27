@@ -12,7 +12,8 @@ RUN npm i npm@latest -g
 # metpy
 # cartopy
 # iris
-# imbalanced-learnRUN conda install --quiet --yes -c conda-forge\
+# imbalanced-learn
+RUN conda install --quiet --yes -c conda-forge\
     'netcdf4' 'metpy' 'cartopy' 'iris' && \
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
