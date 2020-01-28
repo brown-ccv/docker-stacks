@@ -1,4 +1,4 @@
-FROM gcr.io/jupyterhub-docker-images/jupyterhub-scipy:geol1510-spring2020 
+FROM gcr.io/jupyterhub-docker-images/jupyterhub-scipy:geol1510-spring2020
 
 USER root
 
@@ -14,7 +14,7 @@ RUN npm i npm@latest -g
 # iris
 # imbalanced-learn
 RUN conda install --quiet --yes -c conda-forge\
-    'netcdf4' 'metpy' 'cartopy' 'iris' && \
+    'netcdf4' 'metpy' 'cartopy' 'iris' 'siphon' && \
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
